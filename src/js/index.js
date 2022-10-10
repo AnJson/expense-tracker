@@ -11,7 +11,7 @@ import { ExpenseList } from './model/domain/ExpenseList.js'
 // --------------------------------------
 
 // Instanciate costs.
-const payment1 = new Cost(25)
+const payment1 = new Cost(2000)
 const payment2 = new Cost(125)
 const payment3 = new Cost(75)
 
@@ -34,7 +34,7 @@ expenseList.addExpense(exp3)
 
 const monday = new Day(10, DayName.Monday, expenseList)
 
-console.log(monday)
+console.log(monday.toValue())
 
 /* console.log(expenseList.expenses)
 expenseList.removeExpense(exp1.id)

@@ -72,12 +72,20 @@ export class Day {
     return this.#dayInMonth
   }
 
-  get expenseList () {
-    return [...this.#expenseList]
-  }
-
   addExpense (expense) {
     this.#expenseList.addExpense(expense)
+  }
+
+  getExpenses () {
+    return this.#expenseList.expenses
+  }
+
+  removeExpense (id) {
+    this.#expenseList.removeExpense(id)
+  }
+
+  getTotalCost () {
+    return this.#expenseList.getTotalCost()
   }
 
   toValue () {
