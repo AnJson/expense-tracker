@@ -1,5 +1,15 @@
+:root {
+  --color-main: rgb(7, 57, 122); 
+  --color-cta: rgb(241, 116, 32);
+  --color-cta-active: rgb(240, 165, 116);
+  --textcolor-light: rgb(255, 249, 246);
+  --textcolor-dark: rgb(36, 35, 35);
+}
+
 html {
   font-size: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--textcolor-dark);
 }
 
 *,
@@ -9,5 +19,206 @@ html {
 }
 
 body {
+  width: 100%;
   box-sizing: border-box;
+  background-color: rgb(255, 255, 255);
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 200;
+  margin: 0;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.6rem;
+}
+
+h3 {
+  font-size: 2.2rem;
+}
+
+h4 {
+  font-size: 1.8rem;
+}
+
+p {
+  font-size: 1.6rem;
+}
+
+p.content {
+  font-weight: 200;
+}
+
+.hidden {
+  display: none !important;
+}
+
+
+#page {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8rem;
+  background-color: var(--color-main);
+  color: var(--textcolor-light);
+}
+
+.btn {
+  border: none;
+  border-radius: 3px;
+  background: none;
+  cursor: pointer;
+}
+
+.btn--main {
+  padding: 1rem 2rem;
+  background-color: var(--color-cta);
+  color: var(--textcolor-light);
+}
+
+.btn--main--active {
+  background-color: var(--color-cta-active);
+}
+
+.content-box--small {
+  width: 70%;
+}
+
+.section {
+  padding: 2rem 2%;
+}
+
+.section__panel {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+}
+
+.wrapper--center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.week-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.day-box {
+  display: flex;
+  flex-direction: column;
+  border-radius: 3px;
+  background-color: rgb(252, 252, 252);
+  border: 1px solid var(--color-main);
+  overflow: hidden;
+  width: 25rem;
+}
+
+.day-box__header {
+  text-align: center;
+  background-color: var(--color-main);
+  color: var(--textcolor-light);
+  padding: .6rem;
+}
+
+.day-box__content {
+  padding: .7rem;
+}
+
+.expense-list {
+  font-size: 1.6rem;;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.expense-list__item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.day-box__cta {
+  width: 100%;
+  padding: .5rem 0;
+  background-color: var(--color-cta);
+  color: var(--textcolor-light);
+}
+
+.expense-form {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0;
+}
+
+.expense-form__section {
+  display: flex;
+  border: none;
+}
+
+.expense-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.3rem;
+  gap: .3rem;
+  width: 100%;
+}
+
+.expense-form__input {
+  width: 100%;
+  padding: .5rem;
+  font-size: 1.2rem;
+  border-radius: 3px;
+  border: 2px solid var(--color-cta-active);
+}
+
+.expense-form__input:focus {
+  outline: none;
+  border: 2px solid var(--color-main);
+}
+
+.expense-form__select {
+  width: 100%;
+  padding: .5rem;
+  font-size: 1.2rem;
+  border: 2px solid var(--color-cta-active);
+  cursor: pointer;
+}
+
+.expense-form__select:focus {
+  outline: none;
+  border: 2px solid var(--color-main);
+}
+
+.expense-form__submit {
+  align-self: center;
+}
+
+.day-box__footer {
+  display: flex;
+  justify-content: space-between;
+  padding: .5rem;
+  font-size: 1.4rem;
+  background-color: var(--color-main);
+  color: var(--textcolor-light);
 }

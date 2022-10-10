@@ -4,9 +4,317 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/style.css">
   <title>Expense-Tracker</title>
 </head>
 <body>
-  
+  <div id="page">
+    <header>
+      <h1>ExpenseTracker</h1>
+    </header>
+    <main>
+      <div class="section">
+        <div class="wrapper--center">
+          <div class="content-box--small">
+            <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi reiciendis totam maxime nisi dolore, ullam sint expedita tenetur eaque error iusto neque minima alias dignissimos cum deserunt accusamus ab, veritatis corporis eius ex! Cum, rem vitae aliquid saepe consequatur voluptatem laboriosam numquam dignissimos facilis debitis repudiandae, sunt, ad iste quaerat dolores! Omnis inventore excepturi recusandae! Numquam vel quo tempore facere aspernatur fugiat, ipsa perferendis iure! Nihil provident id, qui architecto, sed deserunt itaque sequi dignissimos doloribus expedita laudantium aut, nemo dolorem assumenda quisquam. Amet vero, vitae laboriosam at perspiciatis consectetur sequi dignissimos dolore?</p>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <h2 class="section__heading">Nuvarande vecka</h2>
+        <div class="section__panel">
+          <button class="btn btn--main btn--main--active" id="week-btn">Week</button>
+          <button class="btn btn--main" id="overview-btn">Overview</button>
+        </div>
+        <div id="week" class="week-wrapper">
+          <div class="week-list">
+            <div id="day-one" class="day-box">
+              <div class="day-box__header">
+                <h4 class="day-box__title">Måndag</h4>
+              </div>
+              <div class="day-box__content">
+                <ul class="expense-list">
+                  <li class="expense-list__item">
+                    <span class="expense-item__category">Bränsle</span>
+                    <span class="expense-item__cost">1223:-</span>
+                  </li>
+                  <li class="expense-list__item">
+                    <span class="expense-item__category">Matvaror</span>
+                    <span class="expense-item__cost">1050:-</span>
+                  </li>
+                </ul>
+                <button class="btn day-box__cta">Lägg till</button>
+                <form action="" class="expense-form hidden">
+                  <fieldset class="expense-form__section">
+                    <label for="cost">
+                      Belopp:
+                      <input type="tel" name="cost" class="expense-form__input">
+                    </label>
+                  </fieldset>
+                  <fieldset class="expense-form__section">
+                    <label for="category">
+                      Välj kategori:
+                      <select name="category" class="expense-form__select">
+                        <option value="fuel">Bränsle</option>
+                        <option value="grocery">Matvaror</option>
+                      </select>
+                    </label>
+                  </fieldset>
+                  <button class="btn btn--main expense-form__submit">Spara</button>
+                </form>
+              </div>
+              <div class="day-box__footer">
+                <span>Totalt:</span>
+                <span>2273:-</span>
+              </div>
+            </div>
+            <div id="day-two" class="day-box">
+              <div class="day-box__header">
+                <h4 class="day-box__title">Tisdag</h4>
+              </div>
+              <div class="day-box__content">
+                <ul class="expense-list">
+                  <li class="expense-list__item">
+                    <span class="expense-item__category">Bränsle</span>
+                    <span class="expense-item__cost">1223:-</span>
+                  </li>
+                  <li class="expense-list__item">
+                    <span class="expense-item__category">Matvaror</span>
+                    <span class="expense-item__cost">1050:-</span>
+                  </li>
+                </ul>
+                <button class="btn day-box__cta">Lägg till</button>
+                <form action="" class="expense-form hidden">
+                  <fieldset class="expense-form__section">
+                    <label for="cost">
+                      Belopp:
+                      <input type="tel" name="cost" class="expense-form__input">
+                    </label>
+                  </fieldset>
+                  <fieldset class="expense-form__section">
+                    <label for="category">
+                      Välj kategori:
+                      <select name="category" class="expense-form__select">
+                        <option value="fuel">Bränsle</option>
+                        <option value="grocery">Matvaror</option>
+                      </select>
+                    </label>
+                  </fieldset>
+                  <button class="btn btn--main expense-form__submit">Spara</button>
+                </form>
+              </div>
+              <div class="day-box__footer">
+                <span>Totalt:</span>
+                <span>2273:-</span>
+              </div>
+            </div>
+            <div id="day-three" class="day-box">
+              <div class="day-box__header">
+                <h4 class="day-box__title">Onsdag</h4>
+              </div>
+              <div class="day-box__content">
+                <ul class="expense-list">
+                  <li class="expense-list__item">
+                    <span class="expense-item__category">Bränsle</span>
+                    <span class="expense-item__cost">1223:-</span>
+                  </li>
+                  <li class="expense-list__item">
+                    <span class="expense-item__category">Matvaror</span>
+                    <span class="expense-item__cost">1050:-</span>
+                  </li>
+                </ul>
+                <button class="btn day-box__cta">Lägg till</button>
+                <form action="" class="expense-form hidden">
+                  <fieldset class="expense-form__section">
+                    <label for="cost">
+                      Belopp:
+                      <input type="tel" name="cost" class="expense-form__input">
+                    </label>
+                  </fieldset>
+                  <fieldset class="expense-form__section">
+                    <label for="category">
+                      Välj kategori:
+                      <select name="category" class="expense-form__select">
+                        <option value="fuel">Bränsle</option>
+                        <option value="grocery">Matvaror</option>
+                      </select>
+                    </label>
+                  </fieldset>
+                  <button class="btn btn--main expense-form__submit">Spara</button>
+                </form>
+              </div>
+              <div class="day-box__footer">
+                <span>Totalt:</span>
+                <span>2273:-</span>
+              </div>
+            </div>
+            <div id="day-four" class="day-box">
+              <div class="day-box__header">
+                <h4 class="day-box__title">Torsdag</h4>
+              </div>
+              <div class="day-box__content">
+                <ul class="expense-list">
+                  <li class="expense-list__item">
+                    <span class="expense-item__category">Bränsle</span>
+                    <span class="expense-item__cost">1223:-</span>
+                  </li>
+                  <li class="expense-list__item">
+                    <span class="expense-item__category">Matvaror</span>
+                    <span class="expense-item__cost">1050:-</span>
+                  </li>
+                </ul>
+                <button class="btn day-box__cta">Lägg till</button>
+                <form action="" class="expense-form hidden">
+                  <fieldset class="expense-form__section">
+                    <label for="cost">
+                      Belopp:
+                      <input type="tel" name="cost" class="expense-form__input">
+                    </label>
+                  </fieldset>
+                  <fieldset class="expense-form__section">
+                    <label for="category">
+                      Välj kategori:
+                      <select name="category" class="expense-form__select">
+                        <option value="fuel">Bränsle</option>
+                        <option value="grocery">Matvaror</option>
+                      </select>
+                    </label>
+                  </fieldset>
+                  <button class="btn btn--main expense-form__submit">Spara</button>
+                </form>
+              </div>
+              <div class="day-box__footer">
+                <span>Totalt:</span>
+                <span>2273:-</span>
+              </div>
+            </div>
+            <div id="day-five" class="day-box">
+              <div class="day-box__header">
+                <h4 class="day-box__title">Fredag</h4>
+              </div>
+              <div class="day-box__content">
+                <ul class="expense-list">
+                  <li class="expense-list__item">
+                    <span class="expense-item__category">Bränsle</span>
+                    <span class="expense-item__cost">1223:-</span>
+                  </li>
+                  <li class="expense-list__item">
+                    <span class="expense-item__category">Matvaror</span>
+                    <span class="expense-item__cost">1050:-</span>
+                  </li>
+                </ul>
+                <button class="btn day-box__cta">Lägg till</button>
+                <form action="" class="expense-form hidden">
+                  <fieldset class="expense-form__section">
+                    <label for="cost">
+                      Belopp:
+                      <input type="tel" name="cost" class="expense-form__input">
+                    </label>
+                  </fieldset>
+                  <fieldset class="expense-form__section">
+                    <label for="category">
+                      Välj kategori:
+                      <select name="category" class="expense-form__select">
+                        <option value="fuel">Bränsle</option>
+                        <option value="grocery">Matvaror</option>
+                      </select>
+                    </label>
+                  </fieldset>
+                  <button class="btn btn--main expense-form__submit">Spara</button>
+                </form>
+              </div>
+              <div class="day-box__footer">
+                <span>Totalt:</span>
+                <span>2273:-</span>
+              </div>
+            </div>
+            <div id="day-six" class="day-box">
+              <div class="day-box__header">
+                <h4 class="day-box__title">Lördag</h4>
+              </div>
+              <div class="day-box__content">
+                <ul class="expense-list">
+                  <li class="expense-list__item">
+                    <span class="expense-item__category">Bränsle</span>
+                    <span class="expense-item__cost">1223:-</span>
+                  </li>
+                  <li class="expense-list__item">
+                    <span class="expense-item__category">Matvaror</span>
+                    <span class="expense-item__cost">1050:-</span>
+                  </li>
+                </ul>
+                <button class="btn day-box__cta">Lägg till</button>
+                <form action="" class="expense-form hidden">
+                  <fieldset class="expense-form__section">
+                    <label for="cost">
+                      Belopp:
+                      <input type="tel" name="cost" class="expense-form__input">
+                    </label>
+                  </fieldset>
+                  <fieldset class="expense-form__section">
+                    <label for="category">
+                      Välj kategori:
+                      <select name="category" class="expense-form__select">
+                        <option value="fuel">Bränsle</option>
+                        <option value="grocery">Matvaror</option>
+                      </select>
+                    </label>
+                  </fieldset>
+                  <button class="btn btn--main expense-form__submit">Spara</button>
+                </form>
+              </div>
+              <div class="day-box__footer">
+                <span>Totalt:</span>
+                <span>2273:-</span>
+              </div>
+            </div>
+            <div id="day-seven" class="day-box">
+              <div class="day-box__header">
+                <h4 class="day-box__title">Söndag</h4>
+              </div>
+              <div class="day-box__content">
+                <ul class="expense-list">
+                  <li class="expense-list__item">
+                    <span class="expense-item__category">Bränsle</span>
+                    <span class="expense-item__cost">1223:-</span>
+                  </li>
+                  <li class="expense-list__item">
+                    <span class="expense-item__category">Matvaror</span>
+                    <span class="expense-item__cost">1050:-</span>
+                  </li>
+                </ul>
+                <button class="btn day-box__cta">Lägg till</button>
+                <form action="" class="expense-form hidden">
+                  <fieldset class="expense-form__section">
+                    <label for="cost">
+                      Belopp:
+                      <input type="tel" name="cost" class="expense-form__input">
+                    </label>
+                  </fieldset>
+                  <fieldset class="expense-form__section">
+                    <label for="category">
+                      Välj kategori:
+                      <select name="category" class="expense-form__select">
+                        <option value="fuel">Bränsle</option>
+                        <option value="grocery">Matvaror</option>
+                      </select>
+                    </label>
+                  </fieldset>
+                  <button class="btn btn--main expense-form__submit">Spara</button>
+                </form>
+              </div>
+              <div class="day-box__footer">
+                <span>Totalt:</span>
+                <span>2273:-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="overview" class="overview-wrapper hidden">
+          <!-- Overview with chart goes here -->
+        </div>
+      </div>
+    </main>
+  </div>
 </body>
 </html>
