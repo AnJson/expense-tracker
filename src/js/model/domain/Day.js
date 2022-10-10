@@ -10,7 +10,6 @@ export class Day {
   #expenseList
   #name
   #dayInMonth
-  // NOTE: weekNumber?
 
   constructor (expenseList = new ExpenseList()) {
     // TODO: Add more parameters to create a day with name and day in month.

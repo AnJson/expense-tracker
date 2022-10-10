@@ -16,8 +16,13 @@ export class Category {
       throw new TypeError('The category name be a string with length greater than 0.')
     }
 
-    this.#name = name.charAt(0).toUpperCase() + name.slice(1)
+    this.#name = this.#formatString(name)
     this.#id = id
+    Object.seal(this)
+  }
+
+  #formatString (string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
   }
 
   get name () {

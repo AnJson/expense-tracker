@@ -16,6 +16,7 @@ export class Expense {
     this.#value = value
     this.#suffix = suffix
     this.#id = id
+    Object.seal(this)
   }
 
   #validateValue (value) {
