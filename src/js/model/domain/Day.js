@@ -12,6 +12,7 @@ import { ExpenseList } from './ExpenseList.js'
 export class Day {
   #expenseList
   #name
+  #dayNameSymbol
   #dayInMonth
 
   constructor (dayNumber, dayName, expenseList = new ExpenseList()) {
@@ -21,6 +22,7 @@ export class Day {
     this.#expenseList = expenseList
     this.#dayInMonth = dayNumber
     this.#name = this.#getFormattedDayName(dayName)
+    this.#dayNameSymbol = dayName
     Object.seal(this)
   }
 
@@ -70,6 +72,10 @@ export class Day {
 
   get dayInMonth () {
     return this.#dayInMonth
+  }
+
+  get dayNameSymbol () {
+    return this.#dayNameSymbol
   }
 
   addExpense (expense) {

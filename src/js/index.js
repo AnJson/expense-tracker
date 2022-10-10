@@ -2,9 +2,11 @@ import { Category } from './model/domain/Category.js'
 // import { CategoryList } from './model/domain/CategoryList.js'
 import { Cost } from './model/domain/Cost.js'
 import { Day } from './model/domain/Day.js'
+import { DayList } from './model/domain/DayList.js'
 import { DayName } from './model/domain/DayName.js'
 import { Expense } from './model/domain/Expense.js'
 import { ExpenseList } from './model/domain/ExpenseList.js'
+import { Week } from './model/domain/Week.js'
 
 // --------------------------------------
 // Testing Expenses.
@@ -32,9 +34,30 @@ expenseList.addExpense(exp1)
 expenseList.addExpense(exp2)
 expenseList.addExpense(exp3)
 
-const monday = new Day(10, DayName.Monday, expenseList)
+// Instanciate days.
+const mon = new Day(10, DayName.Monday, expenseList)
+const tue = new Day(11, DayName.Tuesday, expenseList)
+const wed = new Day(12, DayName.Wednesday, expenseList)
+const thu = new Day(12, DayName.Thursday, expenseList)
+const fri = new Day(12, DayName.Friday, expenseList)
+const sat = new Day(12, DayName.Saturday, expenseList)
+const sun = new Day(12, DayName.Sunday, expenseList)
 
-console.log(monday.toValue())
+// Instaciate day-list
+const dayList = new DayList()
+
+dayList.addDay(mon)
+dayList.addDay(tue)
+dayList.addDay(wed)
+dayList.addDay(thu)
+dayList.addDay(fri)
+dayList.addDay(sat)
+dayList.addDay(sun)
+
+// Populate week.
+const week1 = new Week(1, dayList)
+
+console.log(week1)
 
 /* console.log(expenseList.expenses)
 expenseList.removeExpense(exp1.id)
