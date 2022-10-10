@@ -1,5 +1,6 @@
 import { Category } from './model/domain/Category.js'
-import { CategoryList } from './model/domain/CategoryList.js'
+// import { CategoryList } from './model/domain/CategoryList.js'
+import { Cost } from './model/domain/Cost.js'
 import { Expense } from './model/domain/Expense.js'
 import { ExpenseList } from './model/domain/ExpenseList.js'
 
@@ -7,40 +8,44 @@ import { ExpenseList } from './model/domain/ExpenseList.js'
 // Testing Expenses.
 // --------------------------------------
 
-const expense1 = new Expense(25)
-const expense2 = new Expense(125)
-const expense3 = new Expense(75)
+// Instanciate costs.
+const payment1 = new Cost(25)
+const payment2 = new Cost(125)
+const payment3 = new Cost(75)
 
+// Instanciate categories.
+const cat1 = new Category('vilda västern')
+const cat2 = new Category('whatever')
+const cat3 = new Category('matvaror')
+
+// Instanciate expenses.
+const exp1 = new Expense(cat1, payment1)
+const exp2 = new Expense(cat2, payment2)
+const exp3 = new Expense(cat3, payment3)
+
+// Populate expense-list.
 const expenseList = new ExpenseList()
 
-expenseList.addExpense(expense1)
-expenseList.addExpense(expense2)
-expenseList.addExpense(expense3)
+expenseList.addExpense(exp1)
+expenseList.addExpense(exp2)
+expenseList.addExpense(exp3)
 
 console.log(expenseList.expenses)
-
-expenseList.removeExpense(expense1.id)
-
+expenseList.removeExpense(exp1.id)
 console.log(expenseList.expenses)
-
-const totalExpenses = expenseList.getTotalExpense()
-
-console.log(totalExpenses.toString())
+const totalCost = expenseList.getTotalCost()
+console.log(totalCost.toString())
 
 // --------------------------------------
-// Testing Expenses.
+// Testing CategoryList.
 // --------------------------------------
 
-const category1 = new Category('vilda västern')
-const category2 = new Category('whatever')
-const category3 = new Category('matvaror')
+/* const categoryList = new CategoryList()
 
-const categoryList = new CategoryList()
-
-categoryList.addCategory(category1)
-categoryList.addCategory(category2)
-categoryList.addCategory(category3)
+categoryList.addCategory(cat1)
+categoryList.addCategory(cat2)
+categoryList.addCategory(cat3)
 
 console.log(categoryList.categories)
-categoryList.removeCategory(category1.id)
-console.log(categoryList.categories)
+categoryList.removeCategory(cat1.id)
+console.log(categoryList.categories) */

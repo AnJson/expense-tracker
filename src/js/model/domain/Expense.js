@@ -1,47 +1,49 @@
 import { nanoid } from 'nanoid'
+import { Category } from './Category'
+import { Cost } from './Cost'
 
 /**
  * Immutable painted class for an expense.
  *
- * @throws {TypeError} - If value is not a number or a number less than zero.
+ * @throws {TypeError} - If category is not an instance of Category.
+ * @throws {TypeError} - If cost is not an instance of Cost.
  * @class Expense
  */
 export class Expense {
   #id
-  #value
-  #suffix
+  #category
+  #cost
 
-  constructor (value, id = nanoid(), suffix = ':-') {
-    this.#validateValue(value)
-    this.#value = value
-    this.#suffix = suffix
+  constructor (category, cost, id = nanoid()) {
+    this.#validateCategory(category)
+    this.#validateCost(cost)
+    this.#cost = cost
+    this.#category = category
     this.#id = id
     Object.seal(this)
   }
 
-  #validateValue (value) {
-    if (!Number.isFinite(value) || value < 0) {
-      throw new TypeError('The expense must have a value that is a number greater than or equal to zero.')
+  #validateCategory (category) {
+    if (!(category instanceof Category)) {
+      throw new TypeError('The expense must have a category that is an instance of Category.')
     }
   }
 
-  get value () {
-    return this.#value
+  #validateCost (cost) {
+    if (!(cost instanceof Cost)) {
+      throw new TypeError('The expense must have a cost that is an instance of Cost.')
+    }
   }
 
-  get suffix () {
-    return this.#suffix
+  get category () {
+    return this.#category
+  }
+
+  get cost () {
+    return this.#cost
   }
 
   get id () {
     return this.#id
-  }
-
-  toString () {
-    return `${this.value}${this.#suffix}`
-  }
-
-  toValue () {
-    return this.#value
   }
 }

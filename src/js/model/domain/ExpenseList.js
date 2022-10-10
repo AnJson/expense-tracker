@@ -1,3 +1,4 @@
+import { Cost } from './Cost.js'
 import { Expense } from './Expense.js'
 
 export class ExpenseList {
@@ -28,13 +29,13 @@ export class ExpenseList {
     this.#length++
   }
 
-  getTotalExpense () {
-    return this.#toTotalExpenseObject()
+  getTotalCost () {
+    return this.#toTotalCostObject()
   }
 
-  #toTotalExpenseObject () {
-    const sumOfExpenses = this.#expenses.reduce((sumOfExpenses, currentExpense) => sumOfExpenses + currentExpense.value, 0)
-    return new Expense(sumOfExpenses)
+  #toTotalCostObject () {
+    const sumOfExpenses = this.#expenses.reduce((sumOfExpenses, currentExpense) => sumOfExpenses + currentExpense.cost.value, 0)
+    return new Cost(sumOfExpenses)
   }
 
   removeExpense (id) {
