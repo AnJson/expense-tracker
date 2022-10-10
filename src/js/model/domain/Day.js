@@ -6,6 +6,7 @@ import { ExpenseList } from './ExpenseList.js'
  *
  * @throws {TypeError} - If optional parameter is not an instance of ExpenseList.
  * @throws {TypeError} - If day-number is not a number between and including 1 and 31.
+ * @throws {TypeError} - If day-name is a value from the DayName-enum.
  * @class Day
  */
 export class Day {
@@ -19,7 +20,7 @@ export class Day {
     this.#validateDayName(dayName)
     this.#expenseList = expenseList
     this.#dayInMonth = dayNumber
-    this.#name = this.#setDayName(dayName)
+    this.#name = this.#getFormattedDayName(dayName)
     Object.seal(this)
   }
 
@@ -41,22 +42,26 @@ export class Day {
     }
   }
 
-  #setDayName (name) {
+  #getFormattedDayName (name) {
+    let dayName = ''
+
     if (name === DayName.Monday) {
-      this.#name = 'Måndag'
+      dayName = 'Måndag'
     } else if (name === DayName.Tuesday) {
-      this.#name = 'Tisdag'
+      dayName = 'Tisdag'
     } else if (name === DayName.Wednesday) {
-      this.#name = 'Onsdag'
+      dayName = 'Onsdag'
     } else if (name === DayName.Thursday) {
-      this.#name = 'Torsdag'
+      dayName = 'Torsdag'
     } else if (name === DayName.Friday) {
-      this.#name = 'Fredag'
+      dayName = 'Fredag'
     } else if (name === DayName.Saturday) {
-      this.#name = 'Lördag'
+      dayName = 'Lördag'
     } else if (name === DayName.Sunday) {
-      this.#name = 'Söndag'
+      dayName = 'Söndag'
     }
+
+    return dayName
   }
 
   get name () {
@@ -69,5 +74,13 @@ export class Day {
 
   get expenseList () {
     return [...this.#expenseList]
+  }
+
+  addExpense (expense) {
+    this.#expenseList.addExpense(expense)
+  }
+
+  toValue () {
+    return this.#expenseList.getTotalCost().value
   }
 }

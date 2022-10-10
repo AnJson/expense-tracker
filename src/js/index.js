@@ -1,6 +1,8 @@
 import { Category } from './model/domain/Category.js'
 // import { CategoryList } from './model/domain/CategoryList.js'
 import { Cost } from './model/domain/Cost.js'
+import { Day } from './model/domain/Day.js'
+import { DayName } from './model/domain/DayName.js'
 import { Expense } from './model/domain/Expense.js'
 import { ExpenseList } from './model/domain/ExpenseList.js'
 
@@ -30,11 +32,15 @@ expenseList.addExpense(exp1)
 expenseList.addExpense(exp2)
 expenseList.addExpense(exp3)
 
-console.log(expenseList.expenses)
+const monday = new Day(10, DayName.Monday, expenseList)
+
+console.log(monday)
+
+/* console.log(expenseList.expenses)
 expenseList.removeExpense(exp1.id)
 console.log(expenseList.expenses)
 const totalCost = expenseList.getTotalCost()
-console.log(totalCost.toString())
+console.log(totalCost.toString()) */
 
 // --------------------------------------
 // Testing CategoryList.
