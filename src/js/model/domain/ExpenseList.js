@@ -2,8 +2,14 @@ import { Cost } from './Cost.js'
 import { Expense } from './Expense.js'
 
 export class ExpenseList {
-  #expenses = []
-  #length = 0
+  #expenses
+  #length
+
+  constructor () {
+    this.#expenses = []
+    this.#length = 0
+    Object.seal(this)
+  }
 
   get length () {
     return this.#length

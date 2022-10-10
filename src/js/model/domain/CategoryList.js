@@ -1,8 +1,14 @@
 import { Category } from './Category.js'
 
 export class CategoryList {
-  #categories = []
-  #length = 0
+  #categories
+  #length
+
+  constructor () {
+    this.#categories = []
+    this.#length = 0
+    Object.seal(this)
+  }
 
   addCategory (category) {
     this.#validateCategory(category)
