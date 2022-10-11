@@ -24,11 +24,11 @@
       <div class="section">
         <h2 class="section__heading">Nuvarande vecka</h2>
         <div class="section__panel">
-          <button class="btn btn--main btn--main--active" id="week-btn">Week</button>
-          <button class="btn btn--main" id="overview-btn">Overview</button>
+          <button class="btn btn--main btn--main--active" id="days-button">Dagar</button>
+          <button class="btn btn--main" id="overview-button">Överblick</button>
         </div>
         <div id="week" class="week-wrapper">
-          <div class="week-list">
+          <div id="days" class="week-list">
             <div id="day-one" class="day-box">
               <div class="day-box__header">
                 <h4 class="day-box__title">Måndag</h4>
@@ -308,6 +308,11 @@
                 <span>Totalt:</span>
                 <span>2273:-</span>
               </div>
+            </div>
+          </div>
+          <div id="overview">
+            <div class="overview-wrapper">
+              <h1>Överblick</h1>
             </div>
           </div>
         </div>

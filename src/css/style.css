@@ -113,6 +113,10 @@ header {
   align-items: center;
 }
 
+.week-wrapper {
+  min-height: 50vh;
+}
+
 .week-list {
   display: flex;
   flex-wrap: wrap;
@@ -221,4 +225,11 @@ header {
   font-size: 1.4rem;
   background-color: var(--color-main);
   color: var(--textcolor-light);
+}
+
+.overview-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }

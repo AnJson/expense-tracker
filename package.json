@@ -19,6 +19,8 @@
     "vite": "^2.6.7"
   },
   "dependencies": {
+    "@anjson/stats-charts": "^1.0.7",
+    "date-fns": "^2.29.3",
     "nanoid": "^4.0.0"
   }
 }

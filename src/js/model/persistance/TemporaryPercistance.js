@@ -1,10 +1,19 @@
 
 export class TemporaryPersistance {
-  save (dayList) {
+  #dbPrefix = 'exptr-'
+
+  save () {
     // TODO: Save list in localstorage.
   }
 
-  load () {
-    // TODO: Load expenses from localstorage.
+  get (id) {
+    const currentWeekString = window.localStorage.getItem(`${this.#dbPrefix}${id}`)
+    let currentWeek = null
+
+    if (currentWeekString !== null) {
+      currentWeek = JSON.parse(currentWeekString)
+    }
+
+    return currentWeek
   }
 }
