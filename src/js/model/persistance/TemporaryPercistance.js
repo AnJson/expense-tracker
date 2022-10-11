@@ -1,18 +1,26 @@
+import { Week } from '../domain/Week.js'
+import { weekDB } from './week-db.js'
 
+/**
+ * Temprary persistance implementing the interface of persistance.
+ *
+ */
 export class TemporaryPersistance {
-  #dbPrefix = 'exptr-'
+  #dbPrefix = 'exptr_'
 
-  save () {
-    // TODO: Save list in localstorage.
+  save (id, week) {
+    this.#validateWeek(week)
+    weekDB[`${this.#dbPrefix}${id}`] = week
+  }
+
+  #validateWeek (week) {
+    if (!(week instanceof Week)) {
+      throw new TypeError('The week to save in persistance must be an instance of Week.')
+    }
   }
 
   get (id) {
-    const currentWeekString = window.localStorage.getItem(`${this.#dbPrefix}${id}`)
-    let currentWeek = null
-
-    if (currentWeekString !== null) {
-      currentWeek = JSON.parse(currentWeekString)
-    }
+    const currentWeek = weekDB[`${this.#dbPrefix}${id}`]
 
     return currentWeek
   }

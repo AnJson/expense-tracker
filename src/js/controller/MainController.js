@@ -41,16 +41,14 @@ export class MainController {
   initCurrentWeekData () {
     const currentWeekFromPersistance = this.#model.getCurrentWeekFromPersistance()
 
-    if (currentWeekFromPersistance !== null) {
-      console.log(currentWeekFromPersistance) // TODO: Remove this check
-      // TODO: Create new instance of Week.
+    if (currentWeekFromPersistance) {
       this.#currentWeek = currentWeekFromPersistance
     } else {
       this.#currentWeek = this.#getNewWeek()
+      this.#model.saveCurrentWeekToPersistance(this.#currentWeek)
     }
 
     this.#weekView.setWeekHeading(this.#currentWeek.number)
-    console.log(this.#currentWeek.getTotalCost().toString())
     this.#weekView.setWeekTotal(this.#currentWeek.getTotalCost().toString())
   }
 

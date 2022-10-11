@@ -18,4 +18,3 @@ daysButton.addEventListener('click', event => controller.daysButtonClickedHandle
 overviewButton.addEventListener('click', event => controller.overviewButtonClickedHandler(event))
 
 controller.initCurrentWeekData()
-console.log(controller)
