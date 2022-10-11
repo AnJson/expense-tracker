@@ -13,14 +13,14 @@ export class Day {
   #expenseList
   #name
   #dayNameSymbol
-  #dayInMonth
+  #number
 
   constructor (dayNumber, dayName, expenseList = new ExpenseList()) {
     this.#validateExpenseList(expenseList)
     this.#validateDayNumber(dayNumber)
     this.#validateDayName(dayName)
     this.#expenseList = expenseList
-    this.#dayInMonth = dayNumber
+    this.#number = dayNumber
     this.#name = this.#getFormattedDayName(dayName)
     this.#dayNameSymbol = dayName
     Object.seal(this)
@@ -70,8 +70,8 @@ export class Day {
     return this.#name
   }
 
-  get dayInMonth () {
-    return this.#dayInMonth
+  get number () {
+    return this.#number
   }
 
   get dayNameSymbol () {

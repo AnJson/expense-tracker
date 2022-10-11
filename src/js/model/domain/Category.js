@@ -32,4 +32,8 @@ export class Category {
   get id () {
     return this.#id
   }
+
+  toString () {
+    return this.name
+  }
 }

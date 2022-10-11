@@ -70,14 +70,20 @@ template.innerHTML = `
       background-color: var(--color-main);
       color: var(--textcolor-light);
       padding: .6rem;
+      width: 100%;
+    }
+
+    .day-box__date {
+      letter-spacing: 3px;
     }
 
     .day-box__content {
       padding: .7rem;
+      width: 100%;
     }
 
     .expense-list {
-      font-size: 1.6rem;;
+      font-size: 1.6rem;
       list-style-type: none;
       padding: 0;
       margin: 0;
@@ -155,25 +161,17 @@ template.innerHTML = `
       font-size: 1.4rem;
       background-color: var(--color-main);
       color: var(--textcolor-light);
+      width: 100%;
     }
   </style>
   <div id="day-one" class="day-box">
     <div class="day-box__header">
-      <h4 id="name" class="day-box__title"></h4>
-      <h4 id="date" class="day-box__title"></h4>
+      <h4 id="name"></h4>
+      <h4 id="date" class="day-box__date"></h4>
     </div>
     <div class="day-box__content">
-      <ul id="expenses" class="expense-list">
-        <!-- <li class="expense-list__item">
-          <span class="expense-item__category">Bränsle</span>
-          <span class="expense-item__cost">1223:-</span>
-        </li>
-        <li class="expense-list__item">
-          <span class="expense-item__category">Matvaror</span>
-          <span class="expense-item__cost">1050:-</span>
-        </li> -->
-      </ul>
-      <button id="add-button" class="btn day-box__cta">Lägg till</button>
+      <ul id="expenses" class="expense-list"></ul>
+      <button id="add-button" class="btn day-box__cta">Ny utgift</button>
       <form id="expense-form" action="" class="expense-form hidden">
         <fieldset class="expense-form__section">
           <label for="cost">

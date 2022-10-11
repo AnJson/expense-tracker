@@ -1,5 +1,6 @@
 import { Day } from '../../../model/domain/Day.js'
 import { template } from './template.js'
+import '../expense-item'
 
 customElements.define(
   'day-box',
@@ -50,7 +51,10 @@ customElements.define(
 
     #renderExpenses (expenses) {
       for (const expense of expenses) {
-        console.log(expense.category + ' : ' + expense.cost) // NOTE: Remove this.
+        const expenseItem = document.createElement('expense-item')
+        expenseItem.setAttribute('category', expense.category)
+        expenseItem.setAttribute('cost', expense.cost)
+        this.#expensesElement.appendChild(expenseItem)
       }
     }
   })
