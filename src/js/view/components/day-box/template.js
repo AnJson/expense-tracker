@@ -63,6 +63,7 @@ template.innerHTML = `
       border: 1px solid var(--color-main);
       overflow: hidden;
       width: 25rem;
+      transition: all 300ms;
     }
 
     .day-box__header {
@@ -172,7 +173,7 @@ template.innerHTML = `
     <div class="day-box__content">
       <ul id="expenses" class="expense-list"></ul>
       <button id="add-button" class="btn day-box__cta">Ny utgift</button>
-      <form id="expense-form" action="" class="expense-form hidden">
+      <form id="expense-form" action="" class="expense-form hidden" autocomplete="off">
         <fieldset class="expense-form__section">
           <label for="cost">
             Belopp:
@@ -183,8 +184,8 @@ template.innerHTML = `
           <label for="category">
             Välj kategori:
             <select id="category-select" name="category" class="expense-form__select">
-              <option value="fuel">Bränsle</option>
-              <option value="grocery">Matvaror</option>
+              <option value="Bränsle">Bränsle</option>
+              <option value="Matvaror">Matvaror</option>
             </select>
           </label>
         </fieldset>

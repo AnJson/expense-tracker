@@ -23,4 +23,5 @@ controller.initCurrentWeekData()
 // NOTE: Webcomponent test.
 const dayBox = document.createElement('day-box')
 dayList.appendChild(dayBox)
-dayBox.renderDay(new Day(11, DayName.Tuesday))
+dayBox.setDay(new Day(11, DayName.Tuesday))
+dayBox.renderDay()
