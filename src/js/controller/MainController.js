@@ -94,15 +94,4 @@ export class MainController {
     relativeDate.setDate(date.getDate() + dayDifference)
     return relativeDate
   }
-
-  daysButtonClickedHandler (event) {
-    this.#weekView.handleShowWeekdays(event, this.#currentWeek.dayList.days)
-  }
-
-  overviewButtonClickedHandler (event) {
-    if (!event.target.disabled) {
-      console.log('clicked overview!')
-      // TODO: Create array of values and categories to create ChartDrawer with.
-    }
-  }
 }

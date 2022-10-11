@@ -89,7 +89,7 @@ header {
   color: var(--textcolor-light);
 }
 
-.btn--main--active {
+.btn--main:disabled {
   background-color: var(--color-cta-active);
 }
 

@@ -11,13 +11,18 @@ export class WeekView {
   #dayListDOMReference
   #weekHeadingDOMReference
   #weekTotalDOMReference
+  #daysButtonDOMReference
+  #overviewButtonDOMReference
 
-  constructor (model, dayListRef, weekHeadingRef, weekTotalRef) {
+  constructor (model, dayListRef, weekHeadingRef, weekTotalRef, daysButtonRef, overviewButtonRef) {
     this.#validateExpenseTracker(model)
     this.#model = model
     this.#dayListDOMReference = dayListRef
     this.#weekHeadingDOMReference = weekHeadingRef
     this.#weekTotalDOMReference = weekTotalRef
+    this.#daysButtonDOMReference = daysButtonRef
+    this.#overviewButtonDOMReference = overviewButtonRef
+    this.#addEventlisteners()
     Object.freeze(this)
   }
 
@@ -25,6 +30,11 @@ export class WeekView {
     if (!(model instanceof ExpenseTracker)) {
       throw new TypeError('The model must be an instance of ExpenseTracker.')
     }
+  }
+
+  #addEventlisteners () {
+    this.#daysButtonDOMReference.addEventListener('click', () => this.#handleShowWeekdays())
+    this.#overviewButtonDOMReference.addEventListener('click', () => this.#handleShowOverview())
   }
 
   setWeekHeading (number) {
@@ -35,14 +45,19 @@ export class WeekView {
     this.#weekTotalDOMReference.textContent = `Totalt: ${total}`
   }
 
-  handleShowWeekdays (event, days) {
-    if (!event.target.disabled) {
-      console.log(days)
+  #handleShowWeekdays () {
+    if (!this.#daysButtonDOMReference.hasAttribute('disabled')) {
+      this.#daysButtonDOMReference.setAttribute('disabled', true)
+      this.#overviewButtonDOMReference.removeAttribute('disabled')
       // TODO: Implement!
     }
   }
 
-  showOverview (event, chart) {
-    // NOTE: Show overview if not alreary showing and hide weekdays.
+  #handleShowOverview () {
+    if (!this.#overviewButtonDOMReference.hasAttribute('disabled')) {
+      this.#overviewButtonDOMReference.setAttribute('disabled', true)
+      this.#daysButtonDOMReference.removeAttribute('disabled')
+      // TODO: Implement!
+    }
   }
 }

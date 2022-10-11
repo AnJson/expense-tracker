@@ -11,10 +11,7 @@ const overviewButton = document.querySelector('#overview-button')
 
 const persistance = new TemporaryPersistance()
 const model = new ExpenseTracker(persistance)
-const weekView = new WeekView(model, dayList, weekHeading, weekTotal)
+const weekView = new WeekView(model, dayList, weekHeading, weekTotal, daysButton, overviewButton)
 const controller = new MainController(model, weekView)
-
-daysButton.addEventListener('click', event => controller.daysButtonClickedHandler(event))
-overviewButton.addEventListener('click', event => controller.overviewButtonClickedHandler(event))
 
 controller.initCurrentWeekData()
