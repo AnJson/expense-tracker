@@ -1,6 +1,10 @@
-import { getDay } from 'date-fns'
+import { getDate, getDay, getWeek } from 'date-fns'
+import { Day } from '../model/domain/Day.js'
+import { DayList } from '../model/domain/DayList.js'
+import { DayName } from '../model/domain/DayName.js'
 import { ExpenseTracker } from '../model/domain/ExpenseTracker.js'
-import { WeekView } from '../view/WeekView'
+import { Week } from '../model/domain/Week.js'
+import { WeekView } from '../view/WeekView.js'
 
 /**
  * Immutable class representing the controller for the application.
@@ -41,17 +45,54 @@ export class MainController {
 
     if (currentWeekFromPersistance !== null) {
       console.log(currentWeekFromPersistance) // TODO: Remove this check
+      // TODO: Create new instance of Week.
       this.#currentWeek = currentWeekFromPersistance
     } else {
-      // TODO: No data found, create a Week of days.
+      this.#currentWeek = this.#getNewWeek()
     }
   }
 
   #getNewWeek () {
-    const firstDayOfWeekIndex = 1
+    const weekdaysDateNumbers = this.#generateWeekdaysDateNumbers()
+    return this.#generateWeek(weekdaysDateNumbers)
+  }
+
+  #generateWeekdaysDateNumbers () {
     const today = new Date()
-    const currentDayOfWeek = getDay(today) + firstDayOfWeekIndex
-    // NOTE: Implent here.
+    const currentDayOfWeek = getDay(today)
+
+    const weekdaysDateNumbers = []
+    let difference
+
+    for (let day = 1; day <= 7; day++) {
+      difference = day - currentDayOfWeek
+      weekdaysDateNumbers.push(getDate(this.#getDateRelativeToToday(difference)))
+    }
+
+    return weekdaysDateNumbers
+  }
+
+  #generateWeek (dateArray) {
+    const weekDifferenceFromUS = -1
+    const dayList = new DayList()
+    const weekNumber = getWeek(new Date()) + weekDifferenceFromUS
+
+    for (let i = 0; i < dateArray.length; i++) {
+      const dateNumber = dateArray[i]
+      const dayName = Object.values(DayName)[i]
+
+      dayList.addDay(new Day(dateNumber, dayName))
+    }
+
+    return new Week(weekNumber, dayList)
+  }
+
+  #getDateRelativeToToday (dayDifference) {
+    const date = new Date()
+    const relativeDate = new Date(date.getTime())
+
+    relativeDate.setDate(date.getDate() + dayDifference)
+    return relativeDate
   }
 
   daysButtonClickedHandler () {

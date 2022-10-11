@@ -14,4 +14,6 @@ const overviewButton = document.querySelector('#overview-button')
 daysButton.addEventListener('click', () => controller.daysButtonClickedHandler())
 overviewButton.addEventListener('click', () => controller.overviewButtonClickedHandler())
 
+console.log(controller)
 controller.initCurrentWeekData()
+console.log(controller)
