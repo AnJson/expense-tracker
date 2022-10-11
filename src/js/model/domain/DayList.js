@@ -41,7 +41,7 @@ export class DayList {
   }
 
   #toTotalCostObject () {
-    const sumOfWeeksExpenses = this.#days.reduce((sumOfDays, currentDay) => sumOfDays + currentDay.getTotalCost(), 0)
+    const sumOfWeeksExpenses = this.#days.reduce((sumOfDays, currentDay) => sumOfDays + currentDay.getTotalCost().value, 0)
     return new Cost(sumOfWeeksExpenses)
   }
 }

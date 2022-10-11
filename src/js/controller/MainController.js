@@ -17,14 +17,12 @@ export class MainController {
   #model
   #weekView
   #currentWeek
-  #overviewIsShowing
 
   constructor (model, weekView) {
     this.#validateExpenseTracker(model)
     this.#validateWeekView(weekView)
     this.#model = model
     this.#weekView = weekView
-    this.#overviewIsShowing = false
     Object.freeze(this)
   }
 
@@ -50,6 +48,10 @@ export class MainController {
     } else {
       this.#currentWeek = this.#getNewWeek()
     }
+
+    this.#weekView.setWeekHeading(this.#currentWeek.number)
+    console.log(this.#currentWeek.getTotalCost().toString())
+    this.#weekView.setWeekTotal(this.#currentWeek.getTotalCost().toString())
   }
 
   #getNewWeek () {
@@ -95,12 +97,15 @@ export class MainController {
     return relativeDate
   }
 
-  daysButtonClickedHandler () {
-    console.log('clicked!')
+  daysButtonClickedHandler (event) {
+    if (!event.target.disabled) {
+      console.log('clicked days!')
+    }
   }
 
-  overviewButtonClickedHandler () {
-    if (!this.#overviewIsShowing) {
+  overviewButtonClickedHandler (event) {
+    if (!event.target.disabled) {
+      console.log('clicked overview!')
       // TODO: Create array of values and categories to create ChartDrawer with.
     }
   }

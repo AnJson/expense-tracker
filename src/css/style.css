@@ -101,9 +101,19 @@ header {
   padding: 2rem 2%;
 }
 
+.section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-main);
+  color: var(--textcolor-light);
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+
 .section__panel {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 2rem;
 }
 

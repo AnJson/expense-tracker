@@ -62,11 +62,12 @@ export class Week {
     return [...this.#dayList]
   }
 
-  /* getTotalCost () {
-    return this.#expenseList.getTotalCost()
-  } */
+  getTotalCost () {
+    const totalCost = this.#dayList.getTotalCost()
+    return totalCost
+  }
 
-  /* toValue () {
-    return this.#expenseList.getTotalCost().value
-  } */
+  toValue () {
+    return this.#dayList.getTotalCost().value
+  }
 }

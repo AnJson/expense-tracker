@@ -8,10 +8,16 @@ import { ExpenseTracker } from '../model/domain/ExpenseTracker.js'
  */
 export class WeekView {
   #model
+  #dayListDOMReference
+  #weekHeadingDOMReference
+  #weekTotalDOMReference
 
-  constructor (model) {
+  constructor (model, dayListRef, weekHeadingRef, weekTotalRef) {
     this.#validateExpenseTracker(model)
     this.#model = model
+    this.#dayListDOMReference = dayListRef
+    this.#weekHeadingDOMReference = weekHeadingRef
+    this.#weekTotalDOMReference = weekTotalRef
     Object.freeze(this)
   }
 
@@ -21,11 +27,19 @@ export class WeekView {
     }
   }
 
-  showWeekDays () {
+  setWeekHeading (number) {
+    this.#weekHeadingDOMReference.textContent = `Vecka ${number}`
+  }
+
+  setWeekTotal (total) {
+    this.#weekTotalDOMReference.textContent = `Totalt: ${total}`
+  }
+
+  showWeekDays (event) {
     // NOTE: Show weekdays if not alreary showing and hide overview.
   }
 
-  showOverview (chart) {
+  showOverview (event, chart) {
     // NOTE: Show overview if not alreary showing and hide weekdays.
   }
 }
