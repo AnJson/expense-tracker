@@ -9,20 +9,22 @@ import { ExpenseTracker } from '../model/domain/ExpenseTracker.js'
 export class WeekView {
   #model
   #dayListDOMReference
+  #overviewSectionDOMReference
   #weekHeadingDOMReference
   #weekTotalDOMReference
   #daysButtonDOMReference
   #overviewButtonDOMReference
 
-  constructor (model, dayListRef, weekHeadingRef, weekTotalRef, daysButtonRef, overviewButtonRef) {
+  constructor (model, dayListRef, overviewSection, weekHeadingRef, weekTotalRef, daysButtonRef, overviewButtonRef) {
     this.#validateExpenseTracker(model)
     this.#model = model
     this.#dayListDOMReference = dayListRef
+    this.#overviewSectionDOMReference = overviewSection
     this.#weekHeadingDOMReference = weekHeadingRef
     this.#weekTotalDOMReference = weekTotalRef
     this.#daysButtonDOMReference = daysButtonRef
     this.#overviewButtonDOMReference = overviewButtonRef
-    this.#addEventlisteners()
+    this.#addToggleViewButtonsEventlisteners()
     Object.freeze(this)
   }
 
@@ -32,7 +34,7 @@ export class WeekView {
     }
   }
 
-  #addEventlisteners () {
+  #addToggleViewButtonsEventlisteners () {
     this.#daysButtonDOMReference.addEventListener('click', () => this.#handleShowWeekdays())
     this.#overviewButtonDOMReference.addEventListener('click', () => this.#handleShowOverview())
   }
@@ -45,19 +47,30 @@ export class WeekView {
     this.#weekTotalDOMReference.textContent = `Totalt: ${total}`
   }
 
+  renderWeekdays (days) {
+    console.log(days)
+  }
+
   #handleShowWeekdays () {
     if (!this.#daysButtonDOMReference.hasAttribute('disabled')) {
       this.#daysButtonDOMReference.setAttribute('disabled', true)
+      this.#daysButtonDOMReference.classList.remove('btn__main--inactive')
       this.#overviewButtonDOMReference.removeAttribute('disabled')
-      // TODO: Implement!
+      this.#overviewButtonDOMReference.classList.add('btn__main--inactive')
+
+      this.#overviewSectionDOMReference.classList.add('hidden')
+      this.#dayListDOMReference.classList.remove('hidden')
     }
   }
 
   #handleShowOverview () {
     if (!this.#overviewButtonDOMReference.hasAttribute('disabled')) {
       this.#overviewButtonDOMReference.setAttribute('disabled', true)
+      this.#overviewButtonDOMReference.classList.remove('btn__main--inactive')
       this.#daysButtonDOMReference.removeAttribute('disabled')
-      // TODO: Implement!
+      this.#daysButtonDOMReference.classList.add('btn__main--inactive')
+      this.#dayListDOMReference.classList.add('hidden')
+      this.#overviewSectionDOMReference.classList.remove('hidden')
     }
   }
 }

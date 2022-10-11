@@ -83,14 +83,18 @@ header {
   cursor: pointer;
 }
 
-.btn--main {
+.btn__main {
   padding: 1rem 2rem;
   background-color: var(--color-cta);
   color: var(--textcolor-light);
 }
 
-.btn--main:disabled {
+.btn__main--inactive {
   background-color: var(--color-cta-active);
+}
+
+.btn--main:disabled {
+  background-color: var(--color-cta);
 }
 
 .content-box--small {

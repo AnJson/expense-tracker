@@ -4,6 +4,7 @@ import { TemporaryPersistance } from './model/persistance/TemporaryPercistance.j
 import { WeekView } from './view/WeekView.js'
 
 const dayList = document.querySelector('#days')
+const overviewSection = document.querySelector('#overview')
 const weekHeading = document.querySelector('#week-heading')
 const weekTotal = document.querySelector('#week-total')
 const daysButton = document.querySelector('#days-button')
@@ -11,7 +12,7 @@ const overviewButton = document.querySelector('#overview-button')
 
 const persistance = new TemporaryPersistance()
 const model = new ExpenseTracker(persistance)
-const weekView = new WeekView(model, dayList, weekHeading, weekTotal, daysButton, overviewButton)
+const weekView = new WeekView(model, dayList, overviewSection, weekHeading, weekTotal, daysButton, overviewButton)
 const controller = new MainController(model, weekView)
 
 controller.initCurrentWeekData()
