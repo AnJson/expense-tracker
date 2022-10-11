@@ -59,7 +59,7 @@ export class Week {
   }
 
   get dayList () {
-    return [...this.#dayList]
+    return this.#dayList
   }
 
   getTotalCost () {

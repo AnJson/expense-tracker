@@ -96,8 +96,8 @@ export class MainController {
   }
 
   daysButtonClickedHandler (event) {
-    if (!event.target.disabled) {
-      console.log('clicked days!')
+    if (!event.target.hasAttribute('disabled')) {
+      this.#weekView.showWeekdays(event, this.#currentWeek.dayList.days)
     }
   }
 

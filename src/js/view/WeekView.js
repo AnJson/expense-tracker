@@ -35,8 +35,11 @@ export class WeekView {
     this.#weekTotalDOMReference.textContent = `Totalt: ${total}`
   }
 
-  showWeekDays (event) {
-    // NOTE: Show weekdays if not alreary showing and hide overview.
+  handleShowWeekdays (event, days) {
+    if (!event.target.disabled) {
+      console.log(days)
+      // TODO: Implement!
+    }
   }
 
   showOverview (event, chart) {

@@ -22,10 +22,10 @@
         </div>
       </div>
       <div class="section">
-        <section class="section__header">
+        <div class="section__header">
           <h2 id="week-heading" class="section__heading"></h2>
           <h2 id="week-total" class="section__heading"></h2>
-        </section>
+        </div>
         <div class="section__panel">
           <button class="btn btn--main btn--main--active" id="days-button">Dagar</button>
           <button class="btn btn--main" id="overview-button">Överblick</button>
@@ -313,14 +313,10 @@
               </div>
             </div>
           </div>
-          <div id="overview">
-            <div class="overview-wrapper">
-              <h1>Överblick</h1>
-            </div>
+          <div id="overview" class="overview-wrapper hidden">
+            <!-- Overview with chart goes here -->
+            <h2>Överblick</h2>
           </div>
-        </div>
-        <div id="overview" class="overview-wrapper hidden">
-          <!-- Overview with chart goes here -->
         </div>
       </div>
     </main>
