@@ -16,7 +16,6 @@ import { WeekView } from '../view/WeekView.js'
 export class MainController {
   #model
   #weekView
-  #currentWeek
 
   constructor (model, weekView) {
     this.#validateExpenseTracker(model)
@@ -42,14 +41,16 @@ export class MainController {
     const currentWeekFromPersistance = this.#model.getCurrentWeekFromPersistance()
 
     if (currentWeekFromPersistance) {
-      this.#currentWeek = currentWeekFromPersistance
+      this.#weekView.currentWeek = currentWeekFromPersistance
     } else {
-      this.#currentWeek = this.#getNewWeek()
-      this.#model.saveCurrentWeekToPersistance(this.#currentWeek)
+      const newWeek = this.#getNewWeek()
+      this.#weekView.currentWeek = newWeek
+      this.#model.saveCurrentWeekToPersistance(newWeek)
     }
+  }
 
-    this.#weekView.setWeekHeading(this.#currentWeek.number)
-    this.#weekView.setWeekTotal(this.#currentWeek.getTotalCost().toString())
+  showWeek () {
+    this.#weekView.showCurrentWeek()
   }
 
   #getNewWeek () {

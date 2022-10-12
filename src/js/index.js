@@ -3,8 +3,8 @@ import { ExpenseTracker } from './model/domain/ExpenseTracker.js'
 import { TemporaryPersistance } from './model/persistance/TemporaryPercistance.js'
 import { WeekView } from './view/WeekView.js'
 import './view/components/day-box'
-import { Day } from './model/domain/Day.js'
-import { DayName } from './model/domain/DayName.js'
+// import { Day } from './model/domain/Day.js'
+// import { DayName } from './model/domain/DayName.js'
 
 const dayList = document.querySelector('#days')
 const overviewSection = document.querySelector('#overview')
@@ -19,9 +19,10 @@ const weekView = new WeekView(dayList, overviewSection, weekHeading, weekTotal, 
 const controller = new MainController(model, weekView)
 
 controller.initCurrentWeekData()
+controller.showWeek()
 
 // NOTE: Webcomponent test.
-const dayBox = document.createElement('day-box')
+/* const dayBox = document.createElement('day-box')
 dayList.appendChild(dayBox)
 dayBox.setDay(new Day(11, DayName.Tuesday))
-dayBox.renderDay()
+dayBox.renderDay() */

@@ -1,4 +1,7 @@
+import { Week } from '../model/domain/Week.js'
+
 export class WeekView {
+  #currentWeek
   #dayListDOMReference
   #overviewSectionDOMReference
   #weekHeadingDOMReference
@@ -22,16 +25,51 @@ export class WeekView {
     this.#overviewButtonDOMReference.addEventListener('click', () => this.#handleShowOverview())
   }
 
-  setWeekHeading (number) {
-    this.#weekHeadingDOMReference.textContent = `Vecka ${number}`
+  get currentWeek () {
+    return this.#currentWeek
   }
 
-  setWeekTotal (total) {
-    this.#weekTotalDOMReference.textContent = `Totalt: ${total}`
+  set currentWeek (week) {
+    this.#validateWeek(week)
+    this.#currentWeek = week
   }
 
-  renderWeekdays (days) {
-    console.log(days)
+  #validateWeek (week) {
+    if (!(week instanceof Week)) {
+      throw new TypeError('The week to set as current week must be an instance of Week.')
+    }
+  }
+
+  showCurrentWeek () {
+    if (this.#currentWeek) {
+      this.#setWeekHeading()
+      this.#setWeekTotal()
+      this.#renderWeekdays(this.#currentWeek.dayList.days)
+    }
+  }
+
+  #setWeekHeading () {
+    this.#weekHeadingDOMReference.textContent = `Vecka ${this.#currentWeek.number}`
+  }
+
+  #setWeekTotal () {
+    this.#weekTotalDOMReference.textContent = `Totalt: ${this.#currentWeek.getTotalCost().toString()}`
+  }
+
+  #renderWeekdays (days) {
+    this.#dayListDOMReference.innerHTML = ''
+
+    for (const day of days) {
+      const dayBox = document.createElement('day-box')
+      dayBox.setDay(day)
+      dayBox.renderDay()
+      dayBox.addEventListener('expense-added', () => this.#handleAddedExpense())
+      this.#dayListDOMReference.appendChild(dayBox)
+    }
+  }
+
+  #handleAddedExpense () {
+    this.#setWeekTotal()
   }
 
   #handleShowWeekdays () {

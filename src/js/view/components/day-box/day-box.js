@@ -102,7 +102,17 @@ customElements.define(
         this.#renderExpenses()
         this.#toggleFormVisible()
         this.#costInputElement.value = ''
+        this.#emitAddedExpenseEvent(category, cost)
       }
+    }
+
+    #emitAddedExpenseEvent (category, cost) {
+      this.dispatchEvent(new CustomEvent('expense-added', {
+        detail: {
+          category,
+          cost
+        }
+      }))
     }
 
     #formIsValid () {
