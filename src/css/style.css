@@ -152,9 +152,14 @@ header {
   justify-content: center;
   align-items: center;
   gap: 3rem;
-  width: 100%
+  width: 100%;
+  padding: 2rem 0;
 }
 
 .overview__chart-container {
   width: 40%;
+}
+
+#chart-box {
+  width: 100%;
 }

@@ -11,9 +11,9 @@ export class WeekView {
   #daysButtonDOMReference
   #overviewButtonDOMReference
   #chartBoxDOMReference
-  #averegeTextDOMReference
+  #averageTextDOMReference
 
-  constructor (dayListRef, overviewSection, weekHeadingRef, weekTotalRef, daysButtonRef, overviewButtonRef, chartBoxElement, averegeTextElement) {
+  constructor (dayListRef, overviewSection, weekHeadingRef, weekTotalRef, daysButtonRef, overviewButtonRef, chartBoxElement, averageTextElement) {
     this.#categories = []
     this.#dayListDOMReference = dayListRef
     this.#overviewSectionDOMReference = overviewSection
@@ -22,7 +22,7 @@ export class WeekView {
     this.#daysButtonDOMReference = daysButtonRef
     this.#overviewButtonDOMReference = overviewButtonRef
     this.#chartBoxDOMReference = chartBoxElement
-    this.#averegeTextDOMReference = averegeTextElement
+    this.#averageTextDOMReference = averageTextElement
     this.#addToggleViewButtonsEventlisteners()
     Object.freeze(this)
   }
@@ -98,12 +98,12 @@ export class WeekView {
    */
   #handleShowOverview () {
     if (!this.#overviewButtonDOMReference.hasAttribute('disabled')) {
+      this.#dayListDOMReference.classList.add('hidden')
+      this.#overviewSectionDOMReference.classList.remove('hidden')
+
       this.#toggleViewButtonsDisabled(this.#daysButtonDOMReference, this.#overviewButtonDOMReference)
 
       this.#renderChart()
-
-      this.#dayListDOMReference.classList.add('hidden')
-      this.#overviewSectionDOMReference.classList.remove('hidden')
     }
   }
 
@@ -120,8 +120,13 @@ export class WeekView {
     const statsCollection = new StatsCollection(statsChartsData)
     const chartDrawer = new ChartDrawer(statsChartsData)
     this.#chartBoxDOMReference.innerHTML = ''
-    chartDrawer.appendBarChart(this.#chartBoxDOMReference.getAttribute('id'))
-    this.#averegeTextDOMReference.textContent = `I snitt betalar du ${statsCollection.getAverageValue().toFixed()}:- per categori.`
+    chartDrawer.appendBarChart(this.#chartBoxDOMReference.getAttribute('id'), {
+      title: true,
+      percent: true,
+      value: true,
+      average: true
+    })
+    this.#averageTextDOMReference.textContent = `I snitt betalar du ${statsCollection.getAverageValue().toFixed()}:- per categori.`
   }
 
   #getStatsChartsData () {
