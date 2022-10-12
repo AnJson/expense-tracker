@@ -1,5 +1,5 @@
 import { Cost } from './Cost.js'
-import { Day } from './Day.js'
+import { Validator } from './validation/Validator.js'
 
 export class DayList {
   #days
@@ -12,15 +12,9 @@ export class DayList {
   }
 
   addDay (day) {
-    this.#validateDay(day)
+    Validator.validateDay(day)
     this.#days.push(day)
     this.#incrementLength()
-  }
-
-  #validateDay (day) {
-    if (!(day instanceof Day)) {
-      throw new TypeError('Added day must be of type Day.')
-    }
   }
 
   #incrementLength () {

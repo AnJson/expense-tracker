@@ -1,3 +1,5 @@
+import { Validator } from './validation/Validator.js'
+
 /**
  * Immutable painted class for a cost.
  *
@@ -9,16 +11,10 @@ export class Cost {
   #suffix
 
   constructor (value, suffix = ':-') {
-    this.#validateValue(value)
+    Validator.validateCostValue(value)
     this.#value = value
     this.#suffix = suffix
     Object.seal(this)
-  }
-
-  #validateValue (value) {
-    if (!Number.isFinite(value) || value < 0) {
-      throw new TypeError('The cost must have a value that is a number greater than or equal to zero.')
-    }
   }
 
   get value () {

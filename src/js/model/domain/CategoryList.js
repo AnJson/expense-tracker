@@ -1,4 +1,4 @@
-import { Category } from './Category.js'
+import { Validator } from './validation/Validator.js'
 
 export class CategoryList {
   #categories
@@ -11,15 +11,9 @@ export class CategoryList {
   }
 
   addCategory (category) {
-    this.#validateCategory(category)
+    Validator.validateCategory(category)
     this.#categories.push(category)
     this.#incrementLength()
-  }
-
-  #validateCategory (category) {
-    if (!(category instanceof Category)) {
-      throw new TypeError('Added category must be of type Category.')
-    }
   }
 
   #incrementLength () {

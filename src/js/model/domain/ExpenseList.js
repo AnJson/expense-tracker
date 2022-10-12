@@ -1,5 +1,5 @@
 import { Cost } from './Cost.js'
-import { Expense } from './Expense.js'
+import { Validator } from './validation/Validator.js'
 
 export class ExpenseList {
   #expenses
@@ -20,15 +20,9 @@ export class ExpenseList {
   }
 
   addExpense (expense) {
-    this.#validateExpense(expense)
+    Validator.validateExpense(expense)
     this.#expenses.push(expense)
     this.#incrementLength()
-  }
-
-  #validateExpense (expense) {
-    if (!(expense instanceof Expense)) {
-      throw new TypeError('Added expense must be of type Expense.')
-    }
   }
 
   #incrementLength () {

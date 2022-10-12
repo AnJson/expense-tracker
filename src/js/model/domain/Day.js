@@ -1,5 +1,6 @@
 import { DayName } from './DayName.js'
 import { ExpenseList } from './ExpenseList.js'
+import { Validator } from './validation/Validator.js'
 
 /**
  * Class representing a day, containing list of expenses, a dayname and a day-number.
@@ -16,32 +17,14 @@ export class Day {
   #number
 
   constructor (dayNumber, dayName, expenseList = new ExpenseList()) {
-    this.#validateExpenseList(expenseList)
-    this.#validateDayNumber(dayNumber)
-    this.#validateDayName(dayName)
+    Validator.validateExpenseList(expenseList)
+    Validator.validateDayNumber(dayNumber)
+    Validator.validateDayName(dayName)
     this.#expenseList = expenseList
     this.#number = dayNumber
     this.#name = this.#getFormattedDayName(dayName)
     this.#dayNameSymbol = dayName
     Object.seal(this)
-  }
-
-  #validateExpenseList (list) {
-    if (!(list instanceof ExpenseList)) {
-      throw new TypeError('List of expenses must be an instance of ExpenseList.')
-    }
-  }
-
-  #validateDayNumber (number) {
-    if (!Number.isFinite(number) || (number < 1 || number > 31)) {
-      throw new TypeError('The day-number must be a number from 1 to 31.')
-    }
-  }
-
-  #validateDayName (name) {
-    if (!Object.values(DayName).includes(name)) {
-      throw new TypeError('The day-name must a value from the DayName-enum.')
-    }
   }
 
   #getFormattedDayName (name) {

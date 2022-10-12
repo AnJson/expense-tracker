@@ -1,12 +1,13 @@
 import { DayList } from './DayList.js'
 import { DayName } from './DayName.js'
+import { Validator } from './validation/Validator.js'
 
 export class Week {
   #number
   #dayList
 
   constructor (number, dayList) {
-    this.#validateWeekNumber(number)
+    Validator.validateWeekNumber(number)
     this.#validateDayList(dayList)
     this.#number = number
     this.#dayList = dayList
@@ -20,12 +21,6 @@ export class Week {
 
     if (!this.#hasCorrectWeekDays(list)) {
       throw new TypeError('List of days must include only seven different weekdays.')
-    }
-  }
-
-  #validateWeekNumber (number) {
-    if (!Number.isFinite(number) || (number < 1 || number > 52)) {
-      throw new TypeError('The week-number must be a number from 1 to 52.')
     }
   }
 

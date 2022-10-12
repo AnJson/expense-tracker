@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { Week } from '../domain/Week.js'
+import { Validator } from '../domain/validation/Validator.js'
 import { weekDB } from './week-db.js'
 
 /**
@@ -10,14 +10,8 @@ export class WeeksPersistance {
   #dbPrefix = 'exptr_'
 
   save (week, id = nanoid()) {
-    this.#validateWeek(week)
+    Validator.validateWeek(week)
     weekDB[`${this.#dbPrefix}${id}`] = week
-  }
-
-  #validateWeek (week) {
-    if (!(week instanceof Week)) {
-      throw new TypeError('The week to save in persistance must be an instance of Week.')
-    }
   }
 
   get (id) {

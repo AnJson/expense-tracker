@@ -1,6 +1,5 @@
 import { getWeek, getYear } from 'date-fns'
-import { Category } from './Category'
-import { Week } from './Week'
+import { Validator } from './validation/Validator'
 
 export class ExpenseTracker {
   #weekPersistance
@@ -19,14 +18,8 @@ export class ExpenseTracker {
   }
 
   saveCurrentWeekToPersistance (week) {
-    this.#validateWeek(week)
+    Validator.validateWeek(week)
     this.#weekPersistance.save(week, this.#currentWeekId)
-  }
-
-  #validateWeek (week) {
-    if (!(week instanceof Week)) {
-      throw new TypeError('The week to save must be an instance of Week.')
-    }
   }
 
   getCategoriesFromPersistance () {
@@ -34,14 +27,8 @@ export class ExpenseTracker {
   }
 
   saveCategoryToPersistance (category) {
-    this.#validateCategory(category)
+    Validator.validateCategory(category)
     this.#categoryPersistance.save(category)
-  }
-
-  #validateCategory (category) {
-    if (!(category instanceof Category)) {
-      throw new TypeError('The category to save must be an instance of Category.')
-    }
   }
 
   #getCurrentWeeksId () {

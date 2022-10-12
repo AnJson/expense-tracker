@@ -2,9 +2,8 @@ import { getDate, getDay, getWeek } from 'date-fns'
 import { Day } from '../model/domain/Day.js'
 import { DayList } from '../model/domain/DayList.js'
 import { DayName } from '../model/domain/DayName.js'
-import { ExpenseTracker } from '../model/domain/ExpenseTracker.js'
+import { Validator } from '../model/domain/validation/Validator.js'
 import { Week } from '../model/domain/Week.js'
-import { WeekView } from '../view/WeekView.js'
 
 /**
  * Immutable class representing the controller for the application.
@@ -18,23 +17,11 @@ export class MainController {
   #weekView
 
   constructor (model, weekView) {
-    this.#validateExpenseTracker(model)
-    this.#validateWeekView(weekView)
+    Validator.validateExpenseTracker(model)
+    Validator.validateWeekView(weekView)
     this.#model = model
     this.#weekView = weekView
     Object.freeze(this)
-  }
-
-  #validateExpenseTracker (model) {
-    if (!(model instanceof ExpenseTracker)) {
-      throw new TypeError('The model must be an instance of ExpenseTracker.')
-    }
-  }
-
-  #validateWeekView (view) {
-    if (!(view instanceof WeekView)) {
-      throw new TypeError('The weekView must be an instance of WeekView.')
-    }
   }
 
   initCurrentWeekData () {

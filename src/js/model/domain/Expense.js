@@ -1,6 +1,5 @@
 import { nanoid } from 'nanoid'
-import { Category } from './Category'
-import { Cost } from './Cost'
+import { Validator } from './validation/Validator'
 
 /**
  * Immutable painted class for an expense.
@@ -15,24 +14,12 @@ export class Expense {
   #cost
 
   constructor (category, cost, id = nanoid()) {
-    this.#validateCategory(category)
-    this.#validateCost(cost)
+    Validator.validateCategory(category)
+    Validator.validateCost(cost)
     this.#cost = cost
     this.#category = category
     this.#id = id
     Object.seal(this)
-  }
-
-  #validateCategory (category) {
-    if (!(category instanceof Category)) {
-      throw new TypeError('The expense must have a category that is an instance of Category.')
-    }
-  }
-
-  #validateCost (cost) {
-    if (!(cost instanceof Cost)) {
-      throw new TypeError('The expense must have a cost that is an instance of Cost.')
-    }
   }
 
   get category () {

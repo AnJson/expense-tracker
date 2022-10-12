@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { Category } from '../domain/Category.js'
+import { Validator } from '../domain/validation/Validator.js'
 import { categoryDB } from './category-db.js'
 
 /**
@@ -8,14 +8,8 @@ import { categoryDB } from './category-db.js'
  */
 export class CategoryPersistance {
   save (category, id = nanoid()) {
-    this.#validateCategory(category)
+    Validator.validateCategory(category)
     categoryDB[id] = category
-  }
-
-  #validateCategory (category) {
-    if (!(category instanceof Category)) {
-      throw new TypeError('The category to save in persistance must be an instance of Category.')
-    }
   }
 
   get (id) {
