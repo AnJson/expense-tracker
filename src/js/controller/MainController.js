@@ -49,6 +49,14 @@ export class MainController {
     }
   }
 
+  initCategoryData () {
+    const categoriesFromPersistance = this.#model.getCategoriesFromPersistance()
+
+    if (categoriesFromPersistance) {
+      this.#weekView.categories = Object.values(categoriesFromPersistance)
+    }
+  }
+
   showWeek () {
     this.#weekView.showCurrentWeek()
   }

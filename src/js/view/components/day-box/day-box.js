@@ -1,9 +1,9 @@
-import { Day } from '../../../model/domain/Day.js'
 import { template } from './template.js'
 import '../expense-item'
 import { Expense } from '../../../model/domain/Expense.js'
 import { Category } from '../../../model/domain/Category.js'
 import { Cost } from '../../../model/domain/Cost.js'
+import { Validator } from '../../../model/domain/validation/Validator.js'
 
 customElements.define(
   'day-box',
@@ -51,15 +51,14 @@ customElements.define(
       })
     }
 
-    setDay (day) {
-      this.#validateDay(day)
-      this.#day = day
+    setOptions (categories) {
+      Validator.validateCategories(categories)
+      this.#options = categories
     }
 
-    #validateDay (day) {
-      if (!(day instanceof Day)) {
-        throw new TypeError('Day to render must be an instance of Day.')
-      }
+    setDay (day) {
+      Validator.validateDay(day)
+      this.#day = day
     }
 
     renderDay () {
@@ -67,6 +66,7 @@ customElements.define(
         this.#nameElement.textContent = this.#day.name
         this.#dateElement.textContent = this.#day.number
         this.#renderExpenses()
+        this.#renderOptions()
       }
     }
 
@@ -82,6 +82,16 @@ customElements.define(
       }
 
       this.#totalCostElement.textContent = this.#day.getTotalCost().toString()
+    }
+
+    #renderOptions () {
+      for (const category of this.#options) {
+        const option = document.createElement('option')
+        option.setAttribute('value', category.name)
+        option.textContent = category.name
+
+        this.#categorySelectElement.appendChild(option)
+      }
     }
 
     #addButtonClickHandler () {

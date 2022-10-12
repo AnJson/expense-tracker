@@ -1,7 +1,8 @@
-import { Week } from '../model/domain/Week.js'
+import { Validator } from '../model/domain/validation/Validator.js'
 
 export class WeekView {
   #currentWeek
+  #categories
   #dayListDOMReference
   #overviewSectionDOMReference
   #weekHeadingDOMReference
@@ -10,6 +11,7 @@ export class WeekView {
   #overviewButtonDOMReference
 
   constructor (dayListRef, overviewSection, weekHeadingRef, weekTotalRef, daysButtonRef, overviewButtonRef) {
+    this.#categories = []
     this.#dayListDOMReference = dayListRef
     this.#overviewSectionDOMReference = overviewSection
     this.#weekHeadingDOMReference = weekHeadingRef
@@ -30,14 +32,17 @@ export class WeekView {
   }
 
   set currentWeek (week) {
-    this.#validateWeek(week)
+    Validator.validateWeek(week)
     this.#currentWeek = week
   }
 
-  #validateWeek (week) {
-    if (!(week instanceof Week)) {
-      throw new TypeError('The week to set as current week must be an instance of Week.')
-    }
+  get categories () {
+    return [...this.#categories]
+  }
+
+  set categories (categories) {
+    Validator.validateCategories(categories)
+    this.#categories = categories
   }
 
   showCurrentWeek () {
@@ -62,6 +67,7 @@ export class WeekView {
     for (const day of days) {
       const dayBox = document.createElement('day-box')
       dayBox.setDay(day)
+      dayBox.setOptions(this.#categories)
       dayBox.renderDay()
       dayBox.addEventListener('expense-added', () => this.#handleAddedExpense())
       this.#dayListDOMReference.appendChild(dayBox)

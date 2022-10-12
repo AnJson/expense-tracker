@@ -1,10 +1,9 @@
 import { MainController } from './controller/MainController.js'
 import { ExpenseTracker } from './model/domain/ExpenseTracker.js'
-import { TemporaryPersistance } from './model/persistance/TemporaryPercistance.js'
+import { WeeksPersistance } from './model/persistance/WeeksPercistance.js'
 import { WeekView } from './view/WeekView.js'
 import './view/components/day-box'
-// import { Day } from './model/domain/Day.js'
-// import { DayName } from './model/domain/DayName.js'
+import { CategoryPersistance } from './model/persistance/CategoryPercistance.js'
 
 const dayList = document.querySelector('#days')
 const overviewSection = document.querySelector('#overview')
@@ -13,16 +12,12 @@ const weekTotal = document.querySelector('#week-total')
 const daysButton = document.querySelector('#days-button')
 const overviewButton = document.querySelector('#overview-button')
 
-const persistance = new TemporaryPersistance()
-const model = new ExpenseTracker(persistance)
+const weekPersistance = new WeeksPersistance()
+const categoryPersistance = new CategoryPersistance()
+const model = new ExpenseTracker(weekPersistance, categoryPersistance)
 const weekView = new WeekView(dayList, overviewSection, weekHeading, weekTotal, daysButton, overviewButton)
 const controller = new MainController(model, weekView)
 
 controller.initCurrentWeekData()
+controller.initCategoryData()
 controller.showWeek()
-
-// NOTE: Webcomponent test.
-/* const dayBox = document.createElement('day-box')
-dayList.appendChild(dayBox)
-dayBox.setDay(new Day(11, DayName.Tuesday))
-dayBox.renderDay() */

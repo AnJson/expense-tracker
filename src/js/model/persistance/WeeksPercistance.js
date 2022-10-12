@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid'
 import { Week } from '../domain/Week.js'
 import { weekDB } from './week-db.js'
 
@@ -5,10 +6,10 @@ import { weekDB } from './week-db.js'
  * Temprary persistance implementing the interface of persistance.
  *
  */
-export class TemporaryPersistance {
+export class WeeksPersistance {
   #dbPrefix = 'exptr_'
 
-  save (id, week) {
+  save (week, id = nanoid()) {
     this.#validateWeek(week)
     weekDB[`${this.#dbPrefix}${id}`] = week
   }
@@ -23,5 +24,11 @@ export class TemporaryPersistance {
     const currentWeek = weekDB[`${this.#dbPrefix}${id}`]
 
     return currentWeek
+  }
+
+  getAll () {
+    const allWeeks = { ...weekDB }
+
+    return allWeeks
   }
 }

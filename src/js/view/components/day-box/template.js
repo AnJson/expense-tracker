@@ -183,10 +183,7 @@ template.innerHTML = `
         <fieldset class="expense-form__section">
           <label for="category">
             Välj kategori:
-            <select id="category-select" name="category" class="expense-form__select">
-              <option value="Bränsle">Bränsle</option>
-              <option value="Matvaror">Matvaror</option>
-            </select>
+            <select id="category-select" name="category" class="expense-form__select"></select>
           </label>
         </fieldset>
         <button id="save-expense" class="btn btn__main expense-form__submit">Spara</button>
