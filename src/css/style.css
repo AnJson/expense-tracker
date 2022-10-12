@@ -143,5 +143,18 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  width: 100%;
+}
+
+.overview-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  width: 100%
+}
+
+.overview__chart-container {
+  width: 40%;
 }

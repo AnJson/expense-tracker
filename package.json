@@ -16,7 +16,7 @@
   "private": true,
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.4",
-    "vite": "^2.6.7"
+    "vite": "^3.1.7"
   },
   "dependencies": {
     "@anjson/stats-charts": "^1.0.7",
