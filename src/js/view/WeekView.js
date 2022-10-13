@@ -127,7 +127,7 @@ export class WeekView {
       value: true,
       average: true
     })
-    this.#averageTextDOMReference.textContent = `Du har under veckan betalat i snitt ${statsCollection.getAverageValue().toFixed()}:-/categori.`
+    this.#averageTextDOMReference.textContent = `Du har under veckan betalat i snitt ${statsCollection.getAverageValue().toFixed()}:-/kategori.`
   }
 
   #getStatsChartsData () {
