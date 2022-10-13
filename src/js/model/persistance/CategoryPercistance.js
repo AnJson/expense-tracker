@@ -7,8 +7,10 @@ import { categoryDB } from './category-db.js'
  *
  */
 export class CategoryPersistance {
+  #validator = new Validator()
+
   save (category, id = nanoid()) {
-    Validator.validateCategory(category)
+    this.#validator.validateCategory(category)
     categoryDB[id] = category
   }
 

@@ -1,10 +1,11 @@
 import { getWeek, getYear } from 'date-fns'
-import { Validator } from './validation/Validator'
+import { Validator } from './validation/Validator.js'
 
 export class ExpenseTracker {
   #weekPersistance
   #categoryPersistance
   #currentWeekId
+  #validator = new Validator()
 
   constructor (weekPersistance, categoryPersistance) {
     this.#weekPersistance = weekPersistance
@@ -18,7 +19,7 @@ export class ExpenseTracker {
   }
 
   saveCurrentWeekToPersistance (week) {
-    Validator.validateWeek(week)
+    this.#validator.validateWeek(week)
     this.#weekPersistance.save(week, this.#currentWeekId)
   }
 
@@ -27,7 +28,7 @@ export class ExpenseTracker {
   }
 
   saveCategoryToPersistance (category) {
-    Validator.validateCategory(category)
+    this.#validator.validateCategory(category)
     this.#categoryPersistance.save(category)
   }
 

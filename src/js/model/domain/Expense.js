@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { Validator } from './validation/Validator'
+import { Validator } from './validation/Validator.js'
 
 /**
  * Immutable painted class for an expense.
@@ -12,10 +12,11 @@ export class Expense {
   #id
   #category
   #cost
+  #validator = new Validator()
 
   constructor (category, cost, id = nanoid()) {
-    Validator.validateCategory(category)
-    Validator.validateCost(cost)
+    this.#validator.validateCategory(category)
+    this.#validator.validateCost(cost)
     this.#cost = cost
     this.#category = category
     this.#id = id

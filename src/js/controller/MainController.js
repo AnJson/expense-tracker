@@ -15,10 +15,11 @@ import { Week } from '../model/domain/Week.js'
 export class MainController {
   #model
   #weekView
+  #validator = new Validator()
 
   constructor (model, weekView) {
-    Validator.validateExpenseTracker(model)
-    Validator.validateWeekView(weekView)
+    this.#validator.validateExpenseTracker(model)
+    this.#validator.validateWeekView(weekView)
     this.#model = model
     this.#weekView = weekView
     Object.freeze(this)

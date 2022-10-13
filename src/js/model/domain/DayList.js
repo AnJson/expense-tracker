@@ -4,6 +4,7 @@ import { Validator } from './validation/Validator.js'
 export class DayList {
   #days
   #length
+  #validator = new Validator()
 
   constructor () {
     this.#days = []
@@ -12,7 +13,7 @@ export class DayList {
   }
 
   addDay (day) {
-    Validator.validateDay(day)
+    this.#validator.validateDay(day)
     this.#days.push(day)
     this.#incrementLength()
   }

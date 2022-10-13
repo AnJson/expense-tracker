@@ -12,6 +12,7 @@ export class WeekView {
   #overviewButtonDOMReference
   #chartBoxDOMReference
   #averageTextDOMReference
+  #validator = new Validator()
 
   constructor (dayListRef, overviewSection, weekHeadingRef, weekTotalRef, daysButtonRef, overviewButtonRef, chartBoxElement, averageTextElement) {
     this.#categories = []
@@ -37,7 +38,7 @@ export class WeekView {
   }
 
   set currentWeek (week) {
-    Validator.validateWeek(week)
+    this.#validator.validateWeek(week)
     this.#currentWeek = week
   }
 
@@ -46,7 +47,7 @@ export class WeekView {
   }
 
   set categories (categories) {
-    Validator.validateCategories(categories)
+    this.#validator.validateCategories(categories)
     this.#categories = categories
   }
 
@@ -126,7 +127,7 @@ export class WeekView {
       value: true,
       average: true
     })
-    this.#averageTextDOMReference.textContent = `I snitt betalar du ${statsCollection.getAverageValue().toFixed()}:- per categori.`
+    this.#averageTextDOMReference.textContent = `Du har under veckan betalat i snitt ${statsCollection.getAverageValue().toFixed()}:-/categori.`
   }
 
   #getStatsChartsData () {

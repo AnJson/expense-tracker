@@ -9,9 +9,10 @@ import { Validator } from './validation/Validator.js'
 export class Cost {
   #value
   #suffix
+  #validator = new Validator()
 
   constructor (value, suffix = ':-') {
-    Validator.validateCostValue(value)
+    this.#validator.validateCostValue(value)
     this.#value = value
     this.#suffix = suffix
     Object.seal(this)

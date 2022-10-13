@@ -3,6 +3,7 @@ import { Validator } from './validation/Validator.js'
 export class CategoryList {
   #categories
   #length
+  #validator = new Validator()
 
   constructor () {
     this.#categories = []
@@ -11,7 +12,7 @@ export class CategoryList {
   }
 
   addCategory (category) {
-    Validator.validateCategory(category)
+    this.#validator.validateCategory(category)
     this.#categories.push(category)
     this.#incrementLength()
   }

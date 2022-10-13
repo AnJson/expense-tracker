@@ -8,9 +8,10 @@ import { weekDB } from './week-db.js'
  */
 export class WeeksPersistance {
   #dbPrefix = 'exptr_'
+  #validator = new Validator()
 
   save (week, id = nanoid()) {
-    Validator.validateWeek(week)
+    this.#validator.validateWeek(week)
     weekDB[`${this.#dbPrefix}${id}`] = week
   }
 

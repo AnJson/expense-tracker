@@ -17,6 +17,7 @@ customElements.define(
     #categorySelectElement
     #saveExpenseButton
     #totalCostElement
+    #validator = new Validator()
 
     #day
     #options // NOTE: Implement array of categories. Sent from controller that holds the CategoryList(?)
@@ -52,12 +53,12 @@ customElements.define(
     }
 
     setOptions (categories) {
-      Validator.validateCategories(categories)
+      this.#validator.validateCategories(categories)
       this.#options = categories
     }
 
     setDay (day) {
-      Validator.validateDay(day)
+      this.#validator.validateDay(day)
       this.#day = day
     }
 

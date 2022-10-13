@@ -5,9 +5,10 @@ import { Validator } from './validation/Validator.js'
 export class Week {
   #number
   #dayList
+  #validator = new Validator()
 
   constructor (number, dayList) {
-    Validator.validateWeekNumber(number)
+    this.#validator.validateWeekNumber(number)
     this.#validateDayList(dayList)
     this.#number = number
     this.#dayList = dayList

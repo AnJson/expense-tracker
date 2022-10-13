@@ -15,11 +15,12 @@ export class Day {
   #name
   #dayNameSymbol
   #number
+  #validator = new Validator()
 
   constructor (dayNumber, dayName, expenseList = new ExpenseList()) {
-    Validator.validateExpenseList(expenseList)
-    Validator.validateDayNumber(dayNumber)
-    Validator.validateDayName(dayName)
+    this.#validator.validateExpenseList(expenseList)
+    this.#validator.validateDayNumber(dayNumber)
+    this.#validator.validateDayName(dayName)
     this.#expenseList = expenseList
     this.#number = dayNumber
     this.#name = this.#getFormattedDayName(dayName)

@@ -4,6 +4,7 @@ import { Validator } from './validation/Validator.js'
 export class ExpenseList {
   #expenses
   #length
+  #validator = new Validator()
 
   constructor () {
     this.#expenses = []
@@ -20,7 +21,7 @@ export class ExpenseList {
   }
 
   addExpense (expense) {
-    Validator.validateExpense(expense)
+    this.#validator.validateExpense(expense)
     this.#expenses.push(expense)
     this.#incrementLength()
   }
