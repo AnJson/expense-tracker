@@ -126,7 +126,18 @@ removeCategory (id) {
 ...
 
 ### Error handling 
+
+Felhanteringskapitlet har egentligen inte påverkat min kod så mycket. Exempel på att kategorisera exeptions i en wrapper-klass som kastar en gemensam typ av undantag fungerar inte i javascript. Wrapper-klass kan jag skapa men det går inte att fånga en specific typ av exeption på samma sätt som i tex Java. Det jag har gjort är att försöka samla alla undantag som kastas i en gemensam klass som sköter validering och kastandet av undantag.
+
+```javascript
+export class Validator {
+  validateExpenseTracker (model) {
+    if (!(model instanceof ExpenseTracker)) {
+      throw new TypeError('The model must be an instance of ExpenseTracker.')
+    }
+  }
 ...
+```
 
 ### Boundaries 
 ...
