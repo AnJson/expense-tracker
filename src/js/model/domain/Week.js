@@ -64,6 +64,6 @@ export class Week {
   }
 
   toValue () {
-    return this.#dayList.getTotalCost().value
+    return this.#dayList.getTotalCost()
   }
 }

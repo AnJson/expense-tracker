@@ -79,6 +79,6 @@ export class Day {
   }
 
   toValue () {
-    return this.#expenseList.getTotalCost().value
+    return this.#expenseList.getTotalCost()
   }
 }
