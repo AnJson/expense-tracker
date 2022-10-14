@@ -1,4 +1,3 @@
-import { Cost } from './Cost.js'
 import { Validator } from './validation/Validator.js'
 
 export class DayList {
@@ -31,12 +30,12 @@ export class DayList {
   }
 
   getTotalCost () {
-    const totalCost = this.#toTotalCostObject()
+    const totalCost = this.#sumUpCostOfDays()
     return totalCost
   }
 
-  #toTotalCostObject () {
-    const sumOfWeeksExpenses = this.#days.reduce((sumOfDays, currentDay) => sumOfDays + currentDay.getTotalCost().value, 0)
-    return new Cost(sumOfWeeksExpenses)
+  #sumUpCostOfDays () {
+    const sumOfWeeksExpenses = this.#days.reduce((sumOfDays, currentDay) => sumOfDays + currentDay.getTotalCost(), 0)
+    return sumOfWeeksExpenses
   }
 }

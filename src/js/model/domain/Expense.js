@@ -34,4 +34,8 @@ export class Expense {
   get id () {
     return this.#id
   }
+
+  getCostValue () {
+    return this.#cost.value
+  }
 }

@@ -1,4 +1,3 @@
-import { Cost } from './Cost.js'
 import { Validator } from './validation/Validator.js'
 
 export class ExpenseList {
@@ -51,11 +50,11 @@ export class ExpenseList {
   }
 
   getTotalCost () {
-    return this.#toTotalCostObject()
+    return this.#sumUpCostOfExpenses()
   }
 
-  #toTotalCostObject () {
-    const sumOfExpenses = this.#expenses.reduce((sumOfExpenses, currentExpense) => sumOfExpenses + currentExpense.cost.value, 0)
-    return new Cost(sumOfExpenses)
+  #sumUpCostOfExpenses () {
+    const sumOfExpenses = this.#expenses.reduce((sumOfExpenses, currentExpense) => sumOfExpenses + currentExpense.getCostValue(), 0)
+    return sumOfExpenses
   }
 }

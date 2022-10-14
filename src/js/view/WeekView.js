@@ -64,7 +64,7 @@ export class WeekView {
   }
 
   #setWeekTotal () {
-    this.#weekTotalDOMReference.textContent = `Totalt: ${this.#currentWeek.getTotalCost().toString()}`
+    this.#weekTotalDOMReference.textContent = `Totalt: ${this.#currentWeek.getTotalCost()}:-`
   }
 
   #renderWeekdays (days) {
