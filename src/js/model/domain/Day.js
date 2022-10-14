@@ -66,12 +66,12 @@ export class Day {
     this.#expenseList.addExpense(expense)
   }
 
-  getExpenses () {
-    return this.#expenseList.expenses
-  }
-
   removeExpense (id) {
     this.#expenseList.removeExpense(id)
+  }
+
+  getExpenses () {
+    return this.#expenseList.expenses
   }
 
   getTotalCost () {

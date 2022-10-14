@@ -14,6 +14,15 @@ export class ExpenseTracker {
     Object.freeze(this)
   }
 
+  #getCurrentWeeksId () {
+    const weekDifferenceFromUS = -1
+    const today = new Date()
+    const weekNumber = getWeek(today) + weekDifferenceFromUS
+    const year = getYear(today)
+
+    return `${weekNumber}${year}`
+  }
+
   getCurrentWeekFromPersistance () {
     return this.#weekPersistance.get(this.#currentWeekId)
   }
@@ -30,14 +39,5 @@ export class ExpenseTracker {
   saveCategoryToPersistance (category) {
     this.#validator.validateCategory(category)
     this.#categoryPersistance.save(category)
-  }
-
-  #getCurrentWeeksId () {
-    const weekDifferenceFromUS = -1
-    const today = new Date()
-    const weekNumber = getWeek(today) + weekDifferenceFromUS
-    const year = getYear(today)
-
-    return `${weekNumber}${year}`
   }
 }

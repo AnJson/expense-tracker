@@ -12,6 +12,14 @@ export class DayList {
     Object.seal(this)
   }
 
+  get length () {
+    return this.#length
+  }
+
+  get days () {
+    return [...this.#days]
+  }
+
   addDay (day) {
     this.#validator.validateDay(day)
     this.#days.push(day)
@@ -20,14 +28,6 @@ export class DayList {
 
   #incrementLength () {
     this.#length++
-  }
-
-  get length () {
-    return this.#length
-  }
-
-  get days () {
-    return [...this.#days]
   }
 
   getTotalCost () {

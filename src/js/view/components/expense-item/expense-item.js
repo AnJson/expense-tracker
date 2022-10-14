@@ -26,11 +26,13 @@ customElements.define(
 
     constructor () {
       super()
-
       this.attachShadow({ mode: 'open' }).appendChild(
         template.content.cloneNode(true)
       )
+      this.#addShadowRootReferences()
+    }
 
+    #addShadowRootReferences () {
       this.#categoryElement = this.shadowRoot.querySelector('#category')
       this.#costElement = this.shadowRoot.querySelector('#cost')
     }

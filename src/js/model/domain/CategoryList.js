@@ -11,16 +11,6 @@ export class CategoryList {
     Object.seal(this)
   }
 
-  addCategory (category) {
-    this.#validator.validateCategory(category)
-    this.#categories.push(category)
-    this.#incrementLength()
-  }
-
-  #incrementLength () {
-    this.#length++
-  }
-
   get length () {
     return this.#length
   }
@@ -29,12 +19,22 @@ export class CategoryList {
     return [...this.#categories]
   }
 
+  addCategory (category) {
+    this.#validator.validateCategory(category)
+    this.#categories.push(category)
+    this.#incrementLength()
+  }
+
   removeCategory (id) {
     const category = this.#getCategoryById(id)
 
     if (this.#categoryFound(category)) {
       this.#deleteCategory(category)
     }
+  }
+
+  #incrementLength () {
+    this.#length++
   }
 
   #getCategoryById (id) {

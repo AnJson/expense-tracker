@@ -26,25 +26,16 @@ export class ExpenseList {
     this.#incrementLength()
   }
 
-  #incrementLength () {
-    this.#length++
-  }
-
-  getTotalCost () {
-    return this.#toTotalCostObject()
-  }
-
-  #toTotalCostObject () {
-    const sumOfExpenses = this.#expenses.reduce((sumOfExpenses, currentExpense) => sumOfExpenses + currentExpense.cost.value, 0)
-    return new Cost(sumOfExpenses)
-  }
-
   removeExpense (id) {
     const expense = this.#getExpenseById(id)
 
     if (this.#expenseFound(expense)) {
       this.#deleteExpense(expense)
     }
+  }
+
+  #incrementLength () {
+    this.#length++
   }
 
   #getExpenseById (id) {
@@ -57,5 +48,14 @@ export class ExpenseList {
 
   #deleteExpense (expense) {
     this.#expenses.splice(this.#expenses.indexOf(expense), 1)
+  }
+
+  getTotalCost () {
+    return this.#toTotalCostObject()
+  }
+
+  #toTotalCostObject () {
+    const sumOfExpenses = this.#expenses.reduce((sumOfExpenses, currentExpense) => sumOfExpenses + currentExpense.cost.value, 0)
+    return new Cost(sumOfExpenses)
   }
 }

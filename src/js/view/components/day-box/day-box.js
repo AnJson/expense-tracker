@@ -18,17 +18,19 @@ customElements.define(
     #saveExpenseButton
     #totalCostElement
     #validator = new Validator()
-
     #day
-    #options // NOTE: Implement array of categories. Sent from controller that holds the CategoryList(?)
+    #options
 
     constructor () {
       super()
-
       this.attachShadow({ mode: 'open' }).appendChild(
         template.content.cloneNode(true)
       )
+      this.#addShadowRootReferences()
+      this.#addEventListeners()
+    }
 
+    #addShadowRootReferences () {
       this.#nameElement = this.shadowRoot.querySelector('#name')
       this.#dateElement = this.shadowRoot.querySelector('#date')
       this.#expensesElement = this.shadowRoot.querySelector('#expenses')
@@ -38,7 +40,6 @@ customElements.define(
       this.#categorySelectElement = this.shadowRoot.querySelector('#category-select')
       this.#saveExpenseButton = this.shadowRoot.querySelector('#save-expense')
       this.#totalCostElement = this.shadowRoot.querySelector('#total-cost')
-      this.#addEventListeners()
     }
 
     #addEventListeners () {
@@ -52,14 +53,41 @@ customElements.define(
       })
     }
 
-    setOptions (categories) {
-      this.#validator.validateCategories(categories)
-      this.#options = categories
+    #addButtonClickHandler () {
+      this.#toggleFormVisible()
     }
 
-    setDay (day) {
-      this.#validator.validateDay(day)
-      this.#day = day
+    #toggleFormVisible () {
+      this.#addExpenseButton.textContent === 'Ny utgift' ? this.#addExpenseButton.textContent = 'Ångra' : this.#addExpenseButton.textContent = 'Ny utgift'
+      this.#expenseFormElement.classList.toggle('hidden')
+    }
+
+    #saveButtonClickHandler () {
+      if (this.#formIsValid()) {
+        const category = new Category(this.#categorySelectElement.value)
+        const cost = new Cost(Number.parseInt(this.#costInputElement.value))
+        const expense = new Expense(category, cost)
+        this.#day.addExpense(expense)
+        this.#renderExpenses()
+        this.#toggleFormVisible()
+        this.#costInputElement.value = ''
+        this.#emitAddedExpenseEvent(category, cost)
+      }
+    }
+
+    #formIsValid () {
+      const costValue = this.#costInputElement.value.trim()
+
+      return (costValue !== '' && !Number.isFinite(costValue)) && costValue >= 0
+    }
+
+    #emitAddedExpenseEvent (category, cost) {
+      this.dispatchEvent(new CustomEvent('expense-added', {
+        detail: {
+          category,
+          cost
+        }
+      }))
     }
 
     renderDay () {
@@ -95,40 +123,13 @@ customElements.define(
       }
     }
 
-    #addButtonClickHandler () {
-      this.#toggleFormVisible()
+    setOptions (categories) {
+      this.#validator.validateCategories(categories)
+      this.#options = categories
     }
 
-    #toggleFormVisible () {
-      this.#addExpenseButton.textContent === 'Ny utgift' ? this.#addExpenseButton.textContent = 'Ångra' : this.#addExpenseButton.textContent = 'Ny utgift'
-      this.#expenseFormElement.classList.toggle('hidden')
-    }
-
-    #saveButtonClickHandler () {
-      if (this.#formIsValid()) {
-        const category = new Category(this.#categorySelectElement.value)
-        const cost = new Cost(Number.parseInt(this.#costInputElement.value))
-        const expense = new Expense(category, cost)
-        this.#day.addExpense(expense)
-        this.#renderExpenses()
-        this.#toggleFormVisible()
-        this.#costInputElement.value = ''
-        this.#emitAddedExpenseEvent(category, cost)
-      }
-    }
-
-    #emitAddedExpenseEvent (category, cost) {
-      this.dispatchEvent(new CustomEvent('expense-added', {
-        detail: {
-          category,
-          cost
-        }
-      }))
-    }
-
-    #formIsValid () {
-      const costValue = this.#costInputElement.value.trim()
-
-      return (costValue !== '' && !Number.isFinite(costValue)) && costValue >= 0
+    setDay (day) {
+      this.#validator.validateDay(day)
+      this.#day = day
     }
   })
