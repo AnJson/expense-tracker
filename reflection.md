@@ -122,8 +122,28 @@ removeCategory (id) {
 }
 ```
 
-### Objects and Datastructures 
-...
+### Objects and Datastructures
+
+Det här kapitlet har påverkat min kod genom att specificera explicita datastrukturer för tex kostnad(Cost), kategori(Category) och namn på veckodag(DayName) för att inte använda primitiva datatyper som integer eller string. Detta har gjort att jag lättare kan validera att det är en korrekt kostnad som läggs till i en utgift(Expense). Kedjan går hela vägen från kostnad till vecka(Week), en vecka består av en lista med dagar(DayList), som i sin tur består av dagar(Day), där varje dag består av ett namn(DayName) och en lista av utgifter(ExpenseList), som i sin tur består av utgifter(Expense) som i sin tur består av en kostnad(Cost) och en kategori(Category).
+
+Jag följer också **Law of demeter** genom att bara låta metoder i en klass anropa sina kända objekt. I exemplet nedan ser vi hur jag i klassen `Week` kan få ut veckans totala costnad genom att bara anropa `getTotalCost` på den privata medlemsvariabeln `#dayList`. `DayList` loopar då igenom alla sina dagar och anropar metoden `getTotalCost` på varje `Day`. `Day` anropar då metoden `getTotalCost` på sin privata `ExpenseList`. I sin tur loopar då `ExpenseList` igenom alla `Expense` som den innehåller och anropar `getCostValue`. `Expense` läser då attributet value på sin privata `Cost` medlem.
+
+Det börjar i Week.js som håller `DayList`-objektet:
+
+```javascript
+getTotalCost () {
+  const totalCost = this.#dayList.getTotalCost()
+  return totalCost
+}
+```
+
+Och slutar i Expense.js som håller `Cost`-objektet.
+
+```javascript
+getCostValue () {
+  return this.#cost.value
+}
+```
 
 ### Error handling 
 
