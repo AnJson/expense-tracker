@@ -170,7 +170,33 @@ validateCost (cost) {
 
 
 ### Boundaries 
-...
+
+Jag har satt en boundary vid gränser för vad jag känner till om hur och vart jag ska lagra data persistent. Jag har i appen inte någon persistent lagring utan det är bara en lagring som lever under sessionen. Här har jag implementerat ett slags interface(som inte finns i javascript) för att ladda och spara från en "databas" som en boundary för att kunna jobba ovetandes HUR eller VART det laddas och sparas innanför den gränsen. Det gör det lättare att kunna bygga en lagring på andra sidan den gränsen utan att behöva ändra på den kod jag redan skrivit på insidan.
+
+Hantering av kategorier applicerar detta "interface" så att jag kan hämta de kategorier som finns (i detta fallet hårdkodade i sessionen, men det behöver jag inte veta när jag kodar på insidan):
+
+```javascript
+export class CategoryPersistance {
+  #validator = new Validator()
+
+  save (category, id = nanoid()) {
+    this.#validator.validateCategory(category)
+    categoryDB[id] = category
+  }
+
+  get (id) {
+    const category = categoryDB[id]
+
+    return category
+  }
+
+  getAll () {
+    const allCategories = { ...categoryDB }
+
+    return allCategories
+  }
+}
+```
 
 ### Unit tests 
 ...
