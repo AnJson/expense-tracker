@@ -2,12 +2,6 @@
 
 ## Clean Codes påverkan på min kod
 
-.................
-
-.................
-
-.................
-
 ### Meaningful names
 
 Bokens kapitel om namngivning har påverkat mig i mitt kodande på ett sätt som gör att när jag döper variabler, metoder och klasser så funderar jag på att jag ska förklara så att det går att förstå syftet, men ändå med ett så kort namn som möjligt genom att ta bort noisewords eller lägga till ett context(add meaningful context).
@@ -256,6 +250,17 @@ export class Overview {
 ```
 
 ### Systems 
-...
+
+Jag har försökt hålla separation of concern mellan de olika delarna i systemet genom att implementera MVC arkitekturen, modellen är helt oberoende av controller och view. Modellen sköter businesslogic och vyn har en read-only-association till modellen. Controllern är den del som "trycker på knapparna" i modellen, i min MVP-version av applikationen så innebär det egentligen bara att controllern ber modellen(`ExpenseTracker`) att ladda/spara data. Dependency Injection har jag lite svårare att greppa helt men jag försöker använda det genom att skicka in en model och en vy till controllern och därmed injicerar beroendet till dem. Något som är lätt att byta ut och att testa.
+
+I `index.js` injiceras model och vy i controllern och appen initieras genom controllern som i sin tur ber modellen att ladda data:
+
+```javascript
+const controller = new MainController(model, mainView)
+
+controller.initCurrentWeekData()
+controller.initCategoryData()
+controller.showWeek()
+```
 
 
