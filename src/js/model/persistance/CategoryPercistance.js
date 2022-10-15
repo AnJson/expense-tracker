@@ -15,9 +15,9 @@ export class CategoryPersistance {
   }
 
   get (id) {
-    const currentWeek = categoryDB[id]
+    const category = categoryDB[id]
 
-    return currentWeek
+    return category
   }
 
   getAll () {

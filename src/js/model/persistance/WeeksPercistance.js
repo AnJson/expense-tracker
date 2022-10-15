@@ -3,22 +3,21 @@ import { Validator } from '../domain/validation/Validator.js'
 import { weekDB } from './week-db.js'
 
 /**
- * Temprary persistance implementing the interface of persistance.
+ * Temporary persistance implementing the interface of persistance.
  *
  */
 export class WeeksPersistance {
-  #dbPrefix = 'exptr_'
   #validator = new Validator()
 
   save (week, id = nanoid()) {
     this.#validator.validateWeek(week)
-    weekDB[`${this.#dbPrefix}${id}`] = week
+    weekDB[id] = week
   }
 
   get (id) {
-    const currentWeek = weekDB[`${this.#dbPrefix}${id}`]
+    const week = weekDB[id]
 
-    return currentWeek
+    return week
   }
 
   getAll () {
