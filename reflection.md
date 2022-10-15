@@ -147,17 +147,27 @@ getCostValue () {
 
 ### Error handling 
 
-Felhanteringskapitlet har egentligen inte påverkat min kod så mycket. Exempel på att kategorisera exeptions i en wrapper-klass som kastar en gemensam typ av undantag fungerar inte i javascript. Wrapper-klass kan jag skapa men det går inte att fånga en specific typ av exeption på samma sätt som i tex Java. Det jag har gjort är att försöka samla alla undantag som kastas i en gemensam klass som sköter validering och kastandet av undantag.
+Felhanteringskapitlet har egentligen inte påverkat min kod så mycket. Sedan tidigare i utbildningen har vi jobbat med exceptions och det kändes självklart att validera data i konstruktor på klassen vilket tas upp som ett bra sätt att göra. På så sätt vet jag att om det kommer in ett `Cost`-objekt till konstruktorn på `Expense` så vet jag att kostnaden är ett positivt nummer, för det har konstruktorn i `Cost` redan kollat, jag behöver alltså inte kolla det i `Expense` också. Men eftersom javascript inte är ett typat språk så behöver jag validera att det är ett `Cost`-objekt som kommer in. 
+
+Kod i `Expense`:
 
 ```javascript
-export class Validator {
-  validateExpenseTracker (model) {
-    if (!(model instanceof ExpenseTracker)) {
-      throw new TypeError('The model must be an instance of ExpenseTracker.')
-    }
-  }
-...
+constructor (category, cost, id = nanoid()) {
+    this.#validator.validateCategory(category)
+    this.#validator.validateCost(cost)
+    ...
 ```
+
+Kod i `Validator.js`:
+
+```javascript
+validateCost (cost) {
+  if (!(cost instanceof Cost)) {
+    throw new TypeError('Expected a cost to be of type Cost.')
+  }
+}
+```
+
 
 ### Boundaries 
 ...
