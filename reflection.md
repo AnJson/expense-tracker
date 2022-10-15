@@ -44,15 +44,12 @@ it('accessing data-property should return a copy of the original data', () => {
 
 Functions-kapitlet är kanske det kapitel som har påverkat mig mest. Tidigare hade jag funktioner som gjorde mer än de lovade, det var funktioner som gjorde betydligt mer än EN sak och hade ibland flera sidoeffekter. Här har jag börjat bryta ut delarna i funktioner till egna mindre funktioner som gör endast den uppgiften. Att tänka på Do one thing, tillsammans med att endast ha en nivå av indentering(Blocks and indenting) har gjort att funktionerna blir kortare, de får ett namn som beskriver precis vad de gör och abstraktionsnivån blir hög på publika metoder.
 
-(Exemplet är publik metod i vyns WeekView-klass.)
+(Exemplet är publik metod i vyns MainView-klass.)
 
 ```javascript
 showCurrentWeek () {
-  if (this.#currentWeek) {
-    this.#setWeekHeading()
-    this.#setWeekTotal()
-    this.#renderWeekdays(this.#currentWeek.dayList.days)
-  }
+  this.#weekView.showWeekdays()
+  this.#weekView.renderWeekdays()
 }
 ```
 
@@ -199,10 +196,64 @@ export class CategoryPersistance {
 ```
 
 ### Unit tests 
-...
+
+Det här kapitlet hade jag inte läst innan jag gjorde modulen i L1, där jag har mina enhetstester. Men efter att ha läst kapitlet i efterhand så tycker jag att mina tester lever upp till många av de regler som tas upp. De testar alla möjliga olika scenarion, ett test per scenario, returnerar boolean för pass eller fail, de är korta och självbeskrivande.
+
+"What makes a clean test? Readability, readability and readability" och jag skrev om tester i `data-percent.test.js` för att formatera dem så att de blev lättare att kunna läsa.
+
+Tex. Före:
+
+```javascript
+it('from a collection of [10, 12, 3, 18] the method should return [{ value: 10, percent: 0.23255813953488372 }, { value: 12, percent: 0.27906976744186046 }, { value: 3, percent: 0.06976744186046512 }, { value: 18, percent: 0.4186046511627907 }]', () => {
+  const data = [10, 12, 3, 18]
+  const statsCollection = new StatsCollection(data)
+  expect(statsCollection.getDataWithPercent()).toEqual([{ value: 10, percent: 0.23255813953488372 }, { value: 12, percent: 0.27906976744186046 }, { value: 3, percent: 0.06976744186046512 }, { value: 18, percent: 0.4186046511627907 }])
+})
+```
+
+Efter:
+
+```javascript
+it('from a collection of [10, 12, 3, 18] the method should return [{ value: 10, percent: 0.23255813953488372 }, { value: 12, percent: 0.27906976744186046 }, { value: 3, percent: 0.06976744186046512 }, { value: 18, percent: 0.4186046511627907 }]', () => {
+  const data = [10, 12, 3, 18]
+  const statsCollection = new StatsCollection(data)
+  const expectedResult = [
+    {
+      value: 10,
+      percent: 0.23255813953488372
+    },
+    {
+      value: 12,
+      percent: 0.27906976744186046
+    },
+    {
+      value: 3,
+      percent: 0.06976744186046512
+    },
+    {
+      value: 18,
+      percent: 0.4186046511627907
+    }
+  ]
+  expect(statsCollection.getDataWithPercent()).toEqual(expectedResult)
+})
+```
 
 ### Classes 
+
+Detta kapitel läste jag sent och det gjorde att jag omstrukturerade min view(som då hette WeekView) till en `MainView` som i sin tur håller i två andra views med egna ansvarsområden. Min view var från början nästan 200 rader lång och hade väldigt mycket ansvar i vyn. När jag läste kapitlet så kände jag att det här är inte "the single responsibility principle". Jag tänkte först att ansvaret var just vyn och då är det många saker som ska göras. Men dessa saker kunde jag bryta isär och skapa klasser för respektive del av vyn som då hade eget ansvar för sin del och inget annat. Detta gjorde att klasserna blev mindre och mer sammanhängande, ökade "cohesion" i klasserna.
+
+Tex Overview som ansvarar för Överblicks-delen som visar diagram och text för snittutgift per kategori under veckan och då bara har tre medlemsvariabler:
+
+```javascript
+export class Overview {
+  #overviewSectionDOMReference
+  #chartBoxDOMReference
+  #averageTextDOMReference
+
 ...
+}
+```
 
 ### Systems 
 ...

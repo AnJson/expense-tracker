@@ -1,9 +1,11 @@
 import { MainController } from './controller/MainController.js'
 import { ExpenseTracker } from './model/domain/ExpenseTracker.js'
 import { WeeksPersistance } from './model/persistance/WeeksPercistance.js'
-import { WeekView } from './view/WeekView.js'
 import './view/components/day-box'
 import { CategoryPersistance } from './model/persistance/CategoryPercistance.js'
+import { MainView } from './view/MainView.js'
+import { WeekView } from './view/WeekView.js'
+import { Overview } from './view/Overview.js'
 
 const dayList = document.querySelector('#days')
 const overviewSection = document.querySelector('#overview')
@@ -17,8 +19,10 @@ const averegeText = document.querySelector('#averege')
 const weekPersistance = new WeeksPersistance()
 const categoryPersistance = new CategoryPersistance()
 const model = new ExpenseTracker(weekPersistance, categoryPersistance)
-const weekView = new WeekView(dayList, overviewSection, weekHeading, weekTotal, daysButton, overviewButton, chartBox, averegeText)
-const controller = new MainController(model, weekView)
+const overviewView = new Overview(overviewSection, chartBox, averegeText)
+const weekView = new WeekView(overviewView, dayList, weekTotal, weekHeading)
+const mainView = new MainView(weekView, daysButton, overviewButton)
+const controller = new MainController(model, mainView)
 
 controller.initCurrentWeekData()
 controller.initCategoryData()

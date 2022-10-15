@@ -1,3 +1,5 @@
+import { MainView } from '../../../view/MainView.js'
+import { Overview } from '../../../view/Overview.js'
 import { WeekView } from '../../../view/WeekView.js'
 import { Category } from '../Category.js'
 import { Cost } from '../Cost.js'
@@ -15,9 +17,21 @@ export class Validator {
     }
   }
 
+  validateMainView (view) {
+    if (!(view instanceof MainView)) {
+      throw new TypeError('Expected the mainview to be of type MainView.')
+    }
+  }
+
+  validateOverviewView (view) {
+    if (!(view instanceof Overview)) {
+      throw new TypeError('Expected the view to be of type Overview.')
+    }
+  }
+
   validateWeekView (view) {
     if (!(view instanceof WeekView)) {
-      throw new TypeError('Expected the weekview to be of type WeekView.')
+      throw new TypeError('Expected the view to be of type WeekView.')
     }
   }
 

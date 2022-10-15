@@ -1,45 +1,21 @@
-import { ChartDrawer, StatsCollection } from '@anjson/stats-charts'
 import { Validator } from '../model/domain/validation/Validator.js'
 
 export class WeekView {
-  #currentWeek
-  #categories
+  #overviewView
   #dayListDOMReference
-  #overviewSectionDOMReference
-  #weekHeadingDOMReference
   #weekTotalDOMReference
-  #daysButtonDOMReference
-  #overviewButtonDOMReference
-  #chartBoxDOMReference
-  #averageTextDOMReference
+  #weekHeadingDOMReference
+  #categories = []
+  #currentWeek
   #validator = new Validator()
 
-  constructor (dayListRef, overviewSection, weekHeadingRef, weekTotalRef, daysButtonRef, overviewButtonRef, chartBoxElement, averageTextElement) {
-    this.#categories = []
+  constructor (overviewView, dayListRef, weekTotalRef, weekHeadingRef) {
+    this.#validator.validateOverviewView(overviewView)
+    this.#overviewView = overviewView
     this.#dayListDOMReference = dayListRef
-    this.#overviewSectionDOMReference = overviewSection
-    this.#weekHeadingDOMReference = weekHeadingRef
     this.#weekTotalDOMReference = weekTotalRef
-    this.#daysButtonDOMReference = daysButtonRef
-    this.#overviewButtonDOMReference = overviewButtonRef
-    this.#chartBoxDOMReference = chartBoxElement
-    this.#averageTextDOMReference = averageTextElement
-    this.#addToggleViewButtonsEventlisteners()
+    this.#weekHeadingDOMReference = weekHeadingRef
     Object.freeze(this)
-  }
-
-  #addToggleViewButtonsEventlisteners () {
-    this.#daysButtonDOMReference.addEventListener('click', () => this.#handleShowWeekdays())
-    this.#overviewButtonDOMReference.addEventListener('click', () => this.#handleShowOverview())
-  }
-
-  get currentWeek () {
-    return this.#currentWeek
-  }
-
-  set currentWeek (week) {
-    this.#validator.validateWeek(week)
-    this.#currentWeek = week
   }
 
   get categories () {
@@ -51,127 +27,52 @@ export class WeekView {
     this.#categories = categories
   }
 
-  showCurrentWeek () {
-    if (this.#currentWeek) {
-      this.#setWeekHeading()
-      this.#setWeekTotal()
-      this.#renderWeekdays(this.#currentWeek.dayList.days)
-    }
+  get currentWeek () {
+    return this.#currentWeek
   }
 
-  #setWeekHeading () {
-    this.#weekHeadingDOMReference.textContent = `Vecka ${this.#currentWeek.number}`
+  set currentWeek (week) {
+    this.#validator.validateWeek(week)
+    this.#currentWeek = week
+  }
+
+  showWeekdays () {
+    this.#overviewView.hideOverview()
+    this.#dayListDOMReference.classList.remove('hidden')
+    this.#setWeekHeading()
+    this.#setWeekTotal()
   }
 
   #setWeekTotal () {
     this.#weekTotalDOMReference.textContent = `Totalt: ${this.#currentWeek.getTotalCost()}:-`
   }
 
-  #renderWeekdays (days) {
-    this.#dayListDOMReference.innerHTML = ''
+  #setWeekHeading () {
+    this.#weekHeadingDOMReference.textContent = `Vecka ${this.#currentWeek.number}`
+  }
 
-    for (const day of days) {
-      const dayBox = document.createElement('day-box')
-      dayBox.setDay(day)
-      dayBox.setOptions(this.#categories)
-      dayBox.renderDay()
-      dayBox.addEventListener('expense-added', () => this.#handleAddedExpense())
-      this.#dayListDOMReference.appendChild(dayBox)
+  hideWeekdays () {
+    this.#dayListDOMReference.classList.add('hidden')
+    this.#overviewView.showOverview()
+    this.#overviewView.renderChart(this.#currentWeek.dayList)
+  }
+
+  renderWeekdays () {
+    if (this.#currentWeek) {
+      this.#dayListDOMReference.innerHTML = ''
+
+      for (const day of this.#currentWeek.dayList.days) {
+        const dayBox = document.createElement('day-box')
+        dayBox.setDay(day)
+        dayBox.setOptions(this.#categories)
+        dayBox.renderDay()
+        dayBox.addEventListener('expense-added', () => this.#handleAddedExpense())
+        this.#dayListDOMReference.appendChild(dayBox)
+      }
     }
   }
 
   #handleAddedExpense () {
     this.#setWeekTotal()
-  }
-
-  #handleShowWeekdays () {
-    if (!this.#daysButtonDOMReference.hasAttribute('disabled')) {
-      this.#toggleViewButtonsDisabled(this.#overviewButtonDOMReference, this.#daysButtonDOMReference)
-
-      this.#overviewSectionDOMReference.classList.add('hidden')
-      this.#dayListDOMReference.classList.remove('hidden')
-    }
-  }
-
-  /**
-   * Appends chart to overview based on current data.
-   *
-   */
-  #handleShowOverview () {
-    if (!this.#overviewButtonDOMReference.hasAttribute('disabled')) {
-      this.#dayListDOMReference.classList.add('hidden')
-      this.#overviewSectionDOMReference.classList.remove('hidden')
-
-      this.#toggleViewButtonsDisabled(this.#daysButtonDOMReference, this.#overviewButtonDOMReference)
-
-      this.#renderChart()
-    }
-  }
-
-  #toggleViewButtonsDisabled (enabled, disabled) {
-    disabled.setAttribute('disabled', true)
-    disabled.classList.remove('btn__main--inactive')
-
-    enabled.removeAttribute('disabled')
-    enabled.classList.add('btn__main--inactive')
-  }
-
-  #renderChart () {
-    const statsChartsData = this.#getStatsChartsData()
-    const statsCollection = new StatsCollection(statsChartsData)
-    const chartDrawer = new ChartDrawer(statsChartsData)
-    this.#chartBoxDOMReference.innerHTML = ''
-    chartDrawer.appendBarChart(this.#chartBoxDOMReference.getAttribute('id'), {
-      title: true,
-      percent: true,
-      value: true,
-      average: true
-    })
-    this.#averageTextDOMReference.textContent = `Du har under veckan betalat i snitt ${statsCollection.getAverageValue().toFixed()}:-/kategori.`
-  }
-
-  #getStatsChartsData () {
-    const categorizedExpenses = this.#getCategorizedWeeksExpenses()
-    return this.#generateStatsChartsData(categorizedExpenses)
-  }
-
-  #getCategorizedWeeksExpenses () {
-    const categorizedExpenses = []
-
-    this.#currentWeek.dayList.days.forEach(day => {
-      const expenses = day.getExpenses()
-      const expensesAsStatsChartsObjects = expenses.map(expense => (
-        {
-          title: expense.category.name,
-          value: expense.cost.value
-        }
-      ))
-      categorizedExpenses.push(...expensesAsStatsChartsObjects)
-    })
-
-    return categorizedExpenses
-  }
-
-  #generateStatsChartsData (expenses) {
-    const hashMap = {}
-    expenses.forEach(object => {
-      if (!Object.keys(hashMap).includes(object.title)) {
-        hashMap[object.title] = object.value
-      } else {
-        hashMap[object.title] += object.value
-      }
-    })
-
-    const statsChartsData = []
-    for (const category of Object.keys(hashMap)) {
-      const statsChartsObject = {
-        title: category,
-        value: hashMap[category]
-      }
-
-      statsChartsData.push(statsChartsObject)
-    }
-
-    return statsChartsData
   }
 }

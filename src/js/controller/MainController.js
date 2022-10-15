@@ -14,14 +14,14 @@ import { Week } from '../model/domain/Week.js'
  */
 export class MainController {
   #model
-  #weekView
+  #mainView
   #validator = new Validator()
 
-  constructor (model, weekView) {
+  constructor (model, mainView) {
     this.#validator.validateExpenseTracker(model)
-    this.#validator.validateWeekView(weekView)
+    this.#validator.validateMainView(mainView)
     this.#model = model
-    this.#weekView = weekView
+    this.#mainView = mainView
     Object.freeze(this)
   }
 
@@ -29,10 +29,10 @@ export class MainController {
     const currentWeekFromPersistance = this.#model.getCurrentWeekFromPersistance()
 
     if (currentWeekFromPersistance) {
-      this.#weekView.currentWeek = currentWeekFromPersistance
+      this.#mainView.setCurrentWeek(currentWeekFromPersistance)
     } else {
       const newWeek = this.#getNewWeek()
-      this.#weekView.currentWeek = newWeek
+      this.#mainView.setCurrentWeek(newWeek)
       this.#model.saveCurrentWeekToPersistance(newWeek)
     }
   }
@@ -41,12 +41,12 @@ export class MainController {
     const categoriesFromPersistance = this.#model.getCategoriesFromPersistance()
 
     if (categoriesFromPersistance) {
-      this.#weekView.categories = Object.values(categoriesFromPersistance)
+      this.#mainView.setCategories(Object.values(categoriesFromPersistance))
     }
   }
 
   showWeek () {
-    this.#weekView.showCurrentWeek()
+    this.#mainView.showCurrentWeek()
   }
 
   #getNewWeek () {
