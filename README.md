@@ -36,3 +36,14 @@ Funktionallitet som kommer läggas till i framtida versioner av applikationen l�
 Applikationen testas manuellt och testspecification finns här:
 
 [Testspecification](https://github.com/AnJson/expense-tracker/wiki/Testspecification)
+
+### Dependencies
+
+[`@anjson/stats-charts`](https://www.npmjs.com/package/@anjson/stats-charts) - För att illustrera diagram med metadata.
+
+[`date-fns`](https://www.npmjs.com/package/date-fns) - För att hantera datum inklusive veckonummer.
+
+[`nanoid`](https://www.npmjs.com/package/nanoid) - För att generera unika id.
+
+
+
