@@ -77,7 +77,7 @@ export const DayName = Object.freeze({
 När det gäller generell formattering som tex horisontella avstånd och indentering så gör jag som boken säger och följer "teamets" regler genom att rätta mig efter ESLint-regler som tex säger att indentering är 2 spaces och ett mellanslag ska vara mellan metodnamn och öppnings-parantes.
 
 I strukturerandet, och omstrukturerandet av min kod har formateringens regler som Vertical density, Vertical distance och Conceptual affinity påverkat hur jag ordnar metoderna i en klass vertikalt.
-Jag lägger publik metod över de (oftast privata)metoder som den använder sig av, samtidigt som jag försöker lägga de publika metoder som har ett gemensamt sammanhang bredvid varandra. Här blir det en konflikt och jag har valt att lägga metoderna med Conceptual affinity närmast varandra följt av de privata metoderna som de använder under, så att den första publika metodens privat "callees" kommer överst av dessa.
+Jag lägger publik metod över de (oftast privata)metoder som den använder sig av, samtidigt som jag försöker lägga de publika metoder som har ett gemensamt sammanhang bredvid varandra. Här blir det ibland en konflikt och jag har valt att lägga metoderna med Conceptual affinity närmast varandra följt av de privata metoderna som de använder under, så att den första publika metodens privata "callees" kommer överst av dessa. Även om det inte alltid är möjligt att lägga metoder precis som planerat så blir de ändå relativt samlade eftersom regeln att klasser ska vara små också implementeras.
 
 Här är ett exempel på detta från CategoryList i model:
 
@@ -162,7 +162,7 @@ validateCost (cost) {
 
 ### Boundaries 
 
-Jag har satt en boundary vid gränser för vad jag känner till om hur och vart jag ska lagra data persistent. Jag har i appen inte någon persistent lagring utan det är bara en lagring som lever under sessionen. Här har jag implementerat ett slags interface(som inte finns i javascript) för att ladda och spara från en "databas" som en boundary för att kunna jobba ovetandes HUR eller VART det laddas och sparas innanför den gränsen. Det gör det lättare att kunna bygga en lagring på andra sidan den gränsen utan att behöva ändra på den kod jag redan skrivit på insidan.
+Jag har satt en boundary vid gränsen för vad jag känner till om hur och vart jag ska lagra data persistent. Jag har i appen inte någon persistent lagring utan det är bara en lagring som lever under sessionen. Här har jag implementerat ett slags interface(som inte finns i javascript) för att ladda och spara från en "databas" som en boundary för att kunna jobba ovetandes HUR eller VART det laddas och sparas innanför den gränsen. Det gör det lättare att kunna bygga en lagring på andra sidan den gränsen utan att behöva ändra på den kod jag redan skrivit på insidan. Det ger en skön känsla att kapsla in och begränsa vad jag behöver ha koll på här och nu innanför en boundary.
 
 Hantering av kategorier applicerar detta "interface" så att jag kan hämta de kategorier som finns (i detta fallet hårdkodade i sessionen, men det behöver jag inte veta när jag kodar på insidan):
 
@@ -251,7 +251,7 @@ export class Overview {
 
 ### Systems 
 
-Jag har försökt hålla separation of concern mellan de olika delarna i systemet genom att implementera MVC arkitekturen, modellen är helt oberoende av controller och view. Modellen sköter businesslogic och vyn har en read-only-association till modellen. Controllern är den del som "trycker på knapparna" i modellen, i min MVP-version av applikationen så innebär det egentligen bara att controllern ber modellen(`ExpenseTracker`) att ladda/spara data. Dependency Injection har jag lite svårare att greppa helt men jag försöker använda det genom att skicka in en model och en vy till controllern och därmed injicerar beroendet till dem. Något som är lätt att byta ut och att testa.
+Jag har försökt hålla separation of concern mellan de olika delarna i systemet genom att implementera MVC arkitekturen, modellen är helt oberoende av controller och view. Modellen sköter businesslogic och vyn har en readonly-beroende till modellen. Controllern är den del som "trycker på knapparna" i modellen, i min MVP-version av applikationen så innebär det egentligen bara att controllern ber modellen(`ExpenseTracker`) att ladda/spara data. Dependency Injection har jag lite svårare att greppa helt men jag försöker använda det genom att skicka in en model och en vy till controllern och därmed injicerar beroendet till dem. Något som är lätt att byta ut och att testa.
 
 I `index.js` injiceras model och vy i controllern och appen initieras genom controllern som i sin tur ber modellen att ladda data:
 
